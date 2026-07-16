@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CodeLab — Real-Time Collaborative IDE</title>
+<title>BuildTogether — AI-Native Collaborative IDE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/one-dark.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
@@ -18,65 +20,65 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.min.js"></script>
 <style>
   :root {
-    --bg: #0d0f14;
-    --bg2: #131620;
-    --bg3: #1a1e2d;
-    --bg4: #202435;
-    --panel: #161927;
-    --border: rgba(255,255,255,0.07);
-    --border2: rgba(255,255,255,0.12);
-    --accent: #6c63ff;
-    --accent2: #a78bfa;
-    --green: #34d399;
-    --red: #f87171;
-    --amber: #fbbf24;
-    --cyan: #22d3ee;
-    --pink: #f472b6;
-    --orange: #fb923c;
-    --text: #e2e8f0;
-    --text2: #94a3b8;
-    --text3: #64748b;
-    --radius: 8px;
-    --radius2: 12px;
-    --font-ui: 'DM Sans', sans-serif;
+    --bg: #09090b;
+    --bg2: #0f0f12;
+    --bg3: #18181b;
+    --bg4: #27272a;
+    --panel: #0f0f12;
+    --border: rgba(255,255,255,0.06);
+    --border2: rgba(255,255,255,0.10);
+    --accent: #4f46e5;
+    --accent2: #818cf8;
+    --green: #22c55e;
+    --red: #ef4444;
+    --amber: #f59e0b;
+    --cyan: #06b6d4;
+    --pink: #ec4899;
+    --orange: #f97316;
+    --text: #fafafa;
+    --text2: #a1a1aa;
+    --text3: #71717a;
+    --radius: 6px;
+    --radius2: 10px;
+    --font-ui: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-code: 'JetBrains Mono', monospace;
-    --font-display: 'Syne', sans-serif;
+    --font-display: 'Geist', sans-serif;
   }
 
   /* ─── LIGHT THEME ─── */
   body.light {
-    --bg: #f0f4f8;
+    --bg: #fafafa;
     --bg2: #ffffff;
-    --bg3: #e8edf5;
-    --bg4: #dde4ef;
+    --bg3: #f4f4f5;
+    --bg4: #e4e4e7;
     --panel: #ffffff;
-    --border: rgba(0,0,0,0.08);
-    --border2: rgba(0,0,0,0.14);
-    --accent: #5b52f0;
-    --accent2: #7c6ff7;
+    --border: rgba(0,0,0,0.06);
+    --border2: rgba(0,0,0,0.10);
+    --accent: #4f46e5;
+    --accent2: #6366f1;
     --green: #16a34a;
     --red: #dc2626;
     --amber: #d97706;
     --cyan: #0891b2;
     --pink: #db2777;
     --orange: #ea580c;
-    --text: #0f172a;
-    --text2: #334155;
-    --text3: #64748b;
+    --text: #09090b;
+    --text2: #52525b;
+    --text3: #71717a;
   }
-  body.light .CodeMirror { background: #fafbff !important; color: #1e293b !important; }
-  body.light .CodeMirror-gutters { background: #f0f4f8 !important; border-right-color: rgba(0,0,0,0.08) !important; }
-  body.light .CodeMirror-linenumber { color: #94a3b8 !important; }
+  body.light .CodeMirror { background: #fafafa !important; color: #09090b !important; }
+  body.light .CodeMirror-gutters { background: #fafafa !important; border-right-color: rgba(0,0,0,0.06) !important; }
+  body.light .CodeMirror-linenumber { color: #a1a1aa !important; }
   body.light .CodeMirror-cursor { border-left-color: var(--accent) !important; }
-  body.light .CodeMirror-selected { background: rgba(91,82,240,0.15) !important; }
+  body.light .CodeMirror-selected { background: rgba(79,70,229,0.15) !important; }
   body.light .CodeMirror-activeline-background { background: rgba(0,0,0,0.03) !important; }
   body.light .cm-keyword   { color: #7c3aed !important; }
   body.light .cm-def       { color: #1d4ed8 !important; }
   body.light .cm-string    { color: #16a34a !important; }
   body.light .cm-string-2  { color: #b45309 !important; }
-  body.light .cm-comment   { color: #9ca3af !important; font-style: italic; }
+  body.light .cm-comment   { color: #a1a1aa !important; font-style: italic; }
   body.light .cm-number    { color: #ea580c !important; }
-  body.light .cm-variable  { color: #0f172a !important; }
+  body.light .cm-variable  { color: #09090b !important; }
   body.light .cm-variable-2{ color: #0891b2 !important; }
   body.light .cm-operator  { color: #0891b2 !important; }
   body.light .cm-atom      { color: #dc2626 !important; }
@@ -146,15 +148,14 @@
 
   .logo {
     font-family: var(--font-display);
-    font-size: 18px;
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--accent2), var(--cyan));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size: 16px;
+    font-weight: 700;
     letter-spacing: -0.5px;
     margin-right: 8px;
     flex-shrink: 0;
+    color: var(--text);
   }
+  .logo span { color: var(--accent); }
 
   .session-badge {
     background: var(--bg3);
@@ -203,7 +204,7 @@
   }
   .avatar:first-child { margin-left: 0; }
   .avatar:hover { transform: translateY(-2px) scale(1.1); z-index: 10; }
-  .avatar.you { background: linear-gradient(135deg, #6c63ff, #a78bfa); color: white; }
+  .avatar.you { background: linear-gradient(135deg, #4f46e5, #818cf8); color: white; }
   .avatar.a1 { background: linear-gradient(135deg, #10b981, #34d399); color: white; }
   .avatar.a2 { background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #7c2d12; }
   .avatar.a3 { background: linear-gradient(135deg, #ec4899, #f472b6); color: white; }
@@ -292,7 +293,7 @@
     font-family: var(--font-code);
   }
   .file-item:hover { background: var(--bg3); color: var(--text); }
-  .file-item.active { background: rgba(108,99,255,0.15); color: var(--accent2); border-left: 2px solid var(--accent); padding-left: 6px; }
+  .file-item.active { background: rgba(79,70,229,0.15); color: var(--accent2); border-left: 2px solid var(--accent); padding-left: 6px; }
   .file-icon { font-size: 14px; }
 
   .user-list { display: flex; flex-direction: column; gap: 6px; }
@@ -379,29 +380,29 @@
     font-family: var(--font-code) !important;
     font-size: 13.5px !important;
     line-height: 1.7 !important;
-    background: #1e2030 !important;
-    color: #cdd6f4 !important;
+    background: #09090b !important;
+    color: #fafafa !important;
   }
   .CodeMirror-scroll { padding-bottom: 30px; }
   .CodeMirror-cursor { border-left: 2px solid var(--accent2) !important; }
-  .CodeMirror-selected { background: rgba(108,99,255,0.25) !important; }
-  .CodeMirror-activeline-background { background: rgba(255,255,255,0.04) !important; }
-  .CodeMirror-linenumber { color: #4a5568 !important; font-family: var(--font-code) !important; font-size: 12px; }
-  .CodeMirror-gutters { background: #181926 !important; border-right: 1px solid rgba(255,255,255,0.08) !important; }
+  .CodeMirror-selected { background: rgba(79,70,229,0.25) !important; }
+  .CodeMirror-activeline-background { background: rgba(255,255,255,0.03) !important; }
+  .CodeMirror-linenumber { color: #52525b !important; font-family: var(--font-code) !important; font-size: 12px; }
+  .CodeMirror-gutters { background: #09090b !important; border-right: 1px solid rgba(255,255,255,0.06) !important; }
 
-  /* Dark mode syntax — vivid, readable on #1e2030 */
-  .cm-keyword   { color: #cba6f7 !important; }
-  .cm-def       { color: #89b4fa !important; }
-  .cm-string    { color: #a6e3a1 !important; }
-  .cm-string-2  { color: #fab387 !important; }
-  .cm-comment   { color: #585b70 !important; font-style: italic; }
-  .cm-number    { color: #fab387 !important; }
-  .cm-variable  { color: #cdd6f4 !important; }
-  .cm-variable-2{ color: #89dceb !important; }
-  .cm-operator  { color: #89dceb !important; }
-  .cm-atom      { color: #f38ba8 !important; }
-  .cm-builtin   { color: #f9e2af !important; }
-  .cm-meta      { color: #f5c2e7 !important; }
+  /* Dark mode syntax — vivid, readable on #09090b */
+  .cm-keyword   { color: #c084fc !important; }
+  .cm-def       { color: #60a5fa !important; }
+  .cm-string    { color: #4ade80 !important; }
+  .cm-string-2  { color: #fb923c !important; }
+  .cm-comment   { color: #52525b !important; font-style: italic; }
+  .cm-number    { color: #fb923c !important; }
+  .cm-variable  { color: #fafafa !important; }
+  .cm-variable-2{ color: #22d3ee !important; }
+  .cm-operator  { color: #22d3ee !important; }
+  .cm-atom      { color: #f87171 !important; }
+  .cm-builtin   { color: #fbbf24 !important; }
+  .cm-meta      { color: #f472b6 !important; }
 
   .editor-wrapper {
     flex: 1;
@@ -617,8 +618,8 @@
     color: var(--text);
   }
   .msg-bubble.user {
-    background: rgba(108,99,255,0.2);
-    border: 1px solid rgba(108,99,255,0.3);
+    background: rgba(79,70,229,0.18);
+    border: 1px solid rgba(79,70,229,0.3);
     border-radius: var(--radius2) 2px var(--radius2) var(--radius2);
     color: var(--text);
     align-self: flex-end;
@@ -672,7 +673,7 @@
     transition: all 0.15s;
     white-space: nowrap;
   }
-  .quick-btn:hover { border-color: var(--accent); color: var(--accent2); background: rgba(108,99,255,0.1); }
+  .quick-btn:hover { border-color: var(--accent); color: var(--accent2); background: rgba(79,70,229,0.1); }
 
   .chat-input-row { display: flex; gap: 6px; align-items: flex-end; }
   .chat-input {
@@ -793,8 +794,8 @@
     display: inline-flex;
     align-items: center;
     gap: 3px;
-    background: rgba(108,99,255,0.15);
-    border: 1px solid rgba(108,99,255,0.3);
+    background: rgba(79,70,229,0.15);
+    border: 1px solid rgba(79,70,229,0.3);
     border-radius: 4px;
     padding: 0 5px;
     font-size: 12px;
@@ -803,10 +804,10 @@
     cursor: pointer;
     transition: background 0.15s;
   }
-  .mention:hover { background: rgba(108,99,255,0.28); }
+  .mention:hover { background: rgba(79,70,229,0.28); }
   .mention.you {
-    background: rgba(34,211,238,0.12);
-    border-color: rgba(34,211,238,0.3);
+    background: rgba(6,182,212,0.12);
+    border-color: rgba(6,182,212,0.3);
     color: var(--cyan);
   }
 
@@ -866,7 +867,7 @@
     font-size: 12px; cursor: pointer;
     transition: all 0.15s;
   }
-  .reaction.reacted { background: rgba(108,99,255,0.15); border-color: rgba(108,99,255,0.35); }
+  .reaction.reacted { background: rgba(79,70,229,0.15); border-color: rgba(79,70,229,0.35); }
   .reaction:hover { border-color: var(--accent); }
   .reaction .r-count { font-size: 11px; color: var(--text3); }
 
@@ -931,7 +932,7 @@
     transition: background 0.1s;
     font-size: 13px;
   }
-  .ac-item:hover, .ac-item.selected { background: rgba(108,99,255,0.1); }
+  .ac-item:hover, .ac-item.selected { background: rgba(79,70,229,0.1); }
   .ac-item-icon { font-size: 14px; flex-shrink: 0; }
   .ac-item-name { color: var(--text); font-weight: 500; }
   .ac-item-sub { font-size: 11px; color: var(--text3); margin-left: auto; font-family: var(--font-code); }
@@ -961,7 +962,7 @@
     font-weight: 600;
     border: 1px solid;
   }
-  .tc-token.type-mention { background: rgba(108,99,255,0.12); color: var(--accent2); border-color: rgba(108,99,255,0.3); }
+  .tc-token.type-mention { background: rgba(79,70,229,0.12); color: var(--accent2); border-color: rgba(79,70,229,0.3); }
   .tc-token.type-file    { background: rgba(52,211,153,0.1);  color: var(--green);   border-color: rgba(52,211,153,0.25); font-family: var(--font-code); }
   .tc-token-rm { cursor: pointer; opacity: 0.6; font-size: 12px; }
   .tc-token-rm:hover { opacity: 1; }
@@ -1078,8 +1079,8 @@
 
   /* GitHub connect banner */
   .gh-connect-banner {
-    background: linear-gradient(135deg, rgba(108,99,255,0.12), rgba(34,211,238,0.08));
-    border: 1px solid rgba(108,99,255,0.25);
+    background: linear-gradient(135deg, rgba(79,70,229,0.12), rgba(6,182,212,0.08));
+    border: 1px solid rgba(79,70,229,0.25);
     border-radius: var(--radius);
     padding: 10px 12px;
     margin: 8px 12px;
@@ -1099,7 +1100,7 @@
     transition: border-color 0.15s, background 0.15s;
   }
   .role-card:hover { border-color: var(--accent); background: var(--bg4); }
-  .role-card.selected { border-color: var(--accent); background: rgba(108,99,255,0.08); }
+  .role-card.selected { border-color: var(--accent); background: rgba(79,70,229,0.08); }
   .role-icon { font-size: 18px; margin-bottom: 4px; }
   .role-name { font-size: 12px; font-weight: 700; margin-bottom: 2px; }
   .role-desc { font-size: 10px; color: var(--text3); margin-bottom: 6px; line-height: 1.3; }
@@ -1120,10 +1121,10 @@
     font-size: 11px; font-weight: 600;
     border: 1px solid;
   }
-  .rb-developer { background: rgba(52,211,153,0.1); color: #34d399; border-color: rgba(52,211,153,0.3); }
-  .rb-tester    { background: rgba(251,191,36,0.1);  color: #fbbf24; border-color: rgba(251,191,36,0.3); }
-  .rb-client    { background: rgba(148,163,184,0.1); color: #94a3b8; border-color: rgba(148,163,184,0.3); }
-  .rb-owner     { background: rgba(167,139,250,0.1); color: #a78bfa; border-color: rgba(167,139,250,0.3); }
+  .rb-developer { background: rgba(34,197,94,0.1); color: #22c55e; border-color: rgba(34,197,94,0.3); }
+  .rb-tester    { background: rgba(245,158,11,0.1);  color: #f59e0b; border-color: rgba(245,158,11,0.3); }
+  .rb-client    { background: rgba(161,161,170,0.1); color: #a1a1aa; border-color: rgba(161,161,170,0.3); }
+  .rb-owner     { background: rgba(129,140,248,0.1); color: #818cf8; border-color: rgba(129,140,248,0.3); }
   .remove-btn {
     background: none; border: 1px solid var(--border); border-radius: 5px;
     color: var(--text3); padding: 2px 7px; font-size: 11px; cursor: pointer; transition: all .15s;
@@ -1149,7 +1150,7 @@
   .modal {
     background: var(--bg2);
     border: 1px solid var(--border2);
-    border-radius: 16px;
+    border-radius: 12px;
     padding: 24px;
     width: 420px;
     max-width: 90vw;
@@ -1208,7 +1209,7 @@
     transition: all 0.15s;
   }
   .access-option:hover { border-color: var(--accent); }
-  .access-option.selected { border-color: var(--accent); background: rgba(108,99,255,0.08); }
+  .access-option.selected { border-color: var(--accent); background: rgba(79,70,229,0.08); }
   .access-option input[type="radio"] { accent-color: var(--accent); }
   .access-option-text { flex: 1; }
   .access-option-name { font-size: 13px; font-weight: 500; }
@@ -1224,17 +1225,17 @@
   .msg-bubble.user { background: rgba(108,99,255,0.18); border: 1px solid rgba(108,99,255,0.3); border-radius: 10px 2px 10px 10px; }
   .term-success { color: var(--green); }
   .notif { background: var(--bg3); border: 1px solid var(--border2); border-radius: var(--radius); padding: 9px 14px; font-size: 12.5px; color: var(--text); max-width: 300px; box-shadow: 0 4px 20px rgba(0,0,0,.4); transition: all .3s; margin-top: 6px; }
-  .notif.success { border-color: rgba(52,211,153,.4); color: var(--green); }
-  .notif.error   { border-color: rgba(248,113,113,.4); color: var(--red); }
+  .notif.success { border-color: rgba(34,197,94,.4); color: var(--green); }
+  .notif.error   { border-color: rgba(239,68,68,.4); color: var(--red); }
   .notif.info    { border-color: var(--border2); }
   .collab-ripple { position: absolute; width: 8px; height: 8px; border-radius: 50%; opacity: .8; animation: rippleFade .9s ease forwards; pointer-events: none; }
   @keyframes rippleFade { 0%{transform:scale(1);opacity:.8} 100%{transform:scale(3);opacity:0} }
-  .mention { background: rgba(108,99,255,.15); color: var(--accent2); border-radius: 4px; padding: 0 4px; cursor: pointer; font-weight: 500; }
-  .mention.you { background: rgba(34,211,238,.12); color: var(--cyan); }
-  .file-ref { background: rgba(52,211,153,.1); color: var(--green); border-radius: 4px; padding: 1px 5px; cursor: pointer; font-family: var(--font-code); font-size: 11.5px; }
-  .line-num { background: rgba(52,211,153,.2); border-radius: 3px; padding: 0 3px; margin-left: 3px; font-size: 10px; }
+  .mention { background: rgba(79,70,229,.15); color: var(--accent2); border-radius: 4px; padding: 0 4px; cursor: pointer; font-weight: 500; }
+  .mention.you { background: rgba(6,182,212,.12); color: var(--cyan); }
+  .file-ref { background: rgba(34,197,94,.1); color: var(--green); border-radius: 4px; padding: 1px 5px; cursor: pointer; font-family: var(--font-code); font-size: 11.5px; }
+  .line-num { background: rgba(34,197,94,.2); border-radius: 3px; padding: 0 3px; margin-left: 3px; font-size: 10px; }
   .reaction { display: inline-flex; align-items: center; gap: 3px; background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 2px 7px; font-size: 12px; cursor: pointer; transition: all .15s; }
-  .reaction.reacted { background: rgba(108,99,255,.15); border-color: var(--accent); }
+  .reaction.reacted { background: rgba(79,70,229,.15); border-color: var(--accent); }
   .r-count { font-size: 10px; color: var(--text2); }
 
   /* Modal buttons */
@@ -1259,16 +1260,16 @@
     width: 400px;
     background: var(--bg2);
     border: 1px solid var(--border2);
-    border-radius: 20px;
+    border-radius: 12px;
     padding: 32px;
-    box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
   }
   .auth-logo {
     font-family: var(--font-display);
-    font-size: 28px; font-weight: 800;
-    background: linear-gradient(135deg, var(--accent2), var(--cyan));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    font-size: 26px; font-weight: 700;
+    color: var(--text);
     text-align: center; margin-bottom: 4px;
+    letter-spacing: -0.5px;
   }
   .auth-sub { font-size: 13px; color: var(--text3); text-align: center; margin-bottom: 28px; }
   .auth-tabs { display: flex; gap: 4px; margin-bottom: 22px; background: var(--bg3); border-radius: 10px; padding: 3px; }
@@ -1307,8 +1308,8 @@
 
 <div id="authScreen">
   <div class="auth-card">
-    <div class="auth-logo">CodeLab</div>
-    <div class="auth-sub">Real-time collaborative IDE</div>
+    <div class="auth-logo">Build<span style="color:var(--accent)">Together</span></div>
+    <div class="auth-sub">AI-native collaborative development environment</div>
 
     <div class="auth-tabs">
       <button class="auth-tab active" onclick="switchAuthTab('login',this)">Sign In</button>
@@ -1334,14 +1335,14 @@
 
 <!-- HEADER -->
 <header class="header">
-  <div class="logo">CodeLab</div>
+  <div class="logo">Build<span>Together</span></div>
 
   <div class="session-badge" onclick="openShareModal()" data-tip="Click to share">
     <span class="dot"></span>
     <span id="sessionId">cs-f4a7b2d9</span>
     <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 2h3v3M10 2L6 6M5 3H2v7h7V7"/></svg>
   </div>
-  <div id="roleBadge" style="background:rgba(167,139,250,0.12);border:1px solid rgba(167,139,250,0.3);border-radius:20px;padding:3px 11px;font-size:11px;font-weight:600;color:#a78bfa;display:flex;align-items:center;gap:5px;">
+  <div id="roleBadge" style="background:rgba(129,140,248,0.12);border:1px solid rgba(129,140,248,0.3);border-radius:20px;padding:3px 11px;font-size:11px;font-weight:600;color:#818cf8;display:flex;align-items:center;gap:5px;">
     👑 Owner
   </div>
   <div style="background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:3px 11px;font-size:11px;color:var(--text2);display:flex;align-items:center;gap:5px;">
@@ -1616,7 +1617,7 @@
       </div>
 
       <div class="terminal active" id="panel-terminal">
-        <div class="term-line"><span class="term-sys">— CodeLab Sandbox v2.4 · Python 3.11 runtime ready —</span></div>
+        <div class="term-line"><span class="term-sys">— BuildTogether Sandbox v2.4 · Python 3.11 runtime ready —</span></div>
         <div class="term-line"><span class="term-sys">— Type or run code to see output here —</span></div>
       </div>
 
@@ -1710,21 +1711,21 @@
       <div class="ai-header">
         <div class="ai-icon">✦</div>
         <div>
-          <div class="ai-title">CodeLab AI</div>
-          <div class="ai-subtitle">Powered by Claude</div>
+          <div class="ai-title">BuildTogether AI</div>
+          <div class="ai-subtitle">Powered by Gemini</div>
         </div>
         <div class="ai-status"></div>
       </div>
 
       <div class="chat-messages" id="chatMessages">
         <div class="msg">
-          <div class="msg-sender ai">CodeLab AI</div>
+          <div class="msg-sender ai">BuildTogether AI</div>
           <div class="msg-bubble ai">
             Hey! I'm your AI coding assistant. I can help you debug, explain code, suggest optimizations, or write new functions. What are you working on today?
           </div>
         </div>
         <div class="msg">
-          <div class="msg-sender ai">CodeLab AI</div>
+          <div class="msg-sender ai">BuildTogether AI</div>
           <div class="msg-bubble ai">
             I can see you have a Python session open with 3 collaborators. I have full context of your current code — just ask!
           </div>
@@ -1766,7 +1767,7 @@
     <div class="modal-sub">Invite collaborators and assign roles with specific permissions</div>
 
     <div class="url-box">
-      <span class="url-text" id="shareUrl">https://CodeLab.dev/s/cs-f4a7b2d9</span>
+      <span class="url-text" id="shareUrl">https://BuildTogether.dev/s/cs-f4a7b2d9</span>
       <button class="copy-btn" id="copyBtn" onclick="copyUrl()">Copy</button>
     </div>
 
@@ -1827,7 +1828,7 @@
     <div style="font-size:12px;color:var(--text3);margin-bottom:8px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;">Invite Member</div>
     <div style="display:flex;gap:8px;margin-bottom:16px;align-items:center;">
       <input id="inviteUsername" type="text" placeholder="Username…" style="flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);padding:8px 11px;font-size:13px;font-family:var(--font-ui);outline:none;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
-      <div id="roleIndicator" style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:7px 12px;font-size:12px;color:#34d399;white-space:nowrap;min-width:120px;text-align:center;">💻 Developer</div>
+      <div id="roleIndicator" style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:7px 12px;font-size:12px;color:#22c55e;white-space:nowrap;min-width:120px;text-align:center;">💻 Developer</div>
       <button class="modal-btn confirm" onclick="addMember()" style="white-space:nowrap">＋ Add</button>
     </div>
 
@@ -1940,13 +1941,13 @@
 <!-- NOTIFICATIONS -->
 <div class="notifications" id="notifications"></div>
 // ═══════════════════════════════════════════════════════════════════════════
-//  CodeLab — Full Application JavaScript
+//  BuildTogether — Full Application JavaScript
 //  Wired to Flask backend via REST + Socket.IO
 // ═══════════════════════════════════════════════════════════════════════════
 
 <script>
 // ════════════════════════════════════════════════════════════════════════════
-//  CodeLab — Complete Application JS
+//  BuildTogether — Complete Application JS
 //  All buttons, terminal, panels, chat, git, AI — fully functional
 // ════════════════════════════════════════════════════════════════════════════
 
@@ -2133,7 +2134,7 @@ function updateSessionBadge(sid) {
 }
 
 function updateRoleBadge(role) {
-  const colors = { owner:'#a78bfa', developer:'#34d399', tester:'#fbbf24', client:'#94a3b8' };
+  const colors = { owner:'#818cf8', developer:'#22c55e', tester:'#f59e0b', client:'#a1a1aa' };
   const icons  = { owner:'👑', developer:'💻', tester:'🧪', client:'👤' };
   const el = document.getElementById('roleBadge');
   if (!el) return;
@@ -2267,8 +2268,8 @@ const fileNameMap = {
 };
 
 const STARTER_CODE = {
-  python:     '# CodeLab — Python\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left  = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result, i, j = [], 0, 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]: result.append(left[i]); i += 1\n        else: result.append(right[j]); j += 1\n    result.extend(left[i:]); result.extend(right[j:])\n    return result\n\nif __name__ == "__main__":\n    data = [64, 34, 25, 12, 22, 11, 90]\n    print(f"Original: {data}")\n    print(f"Sorted:   {merge_sort(data)}")\n',
-  javascript: '// CodeLab — JavaScript\n\nfunction mergeSort(arr) {\n  if (arr.length <= 1) return arr;\n  const mid   = Math.floor(arr.length / 2);\n  const left  = mergeSort(arr.slice(0, mid));\n  const right = mergeSort(arr.slice(mid));\n  return merge(left, right);\n}\n\nfunction merge(left, right) {\n  const result = [];\n  let i = 0, j = 0;\n  while (i < left.length && j < right.length) {\n    result.push(left[i] <= right[j] ? left[i++] : right[j++]);\n  }\n  return result.concat(left.slice(i)).concat(right.slice(j));\n}\n\nconst data = [64, 34, 25, 12, 22, 11, 90];\nconsole.log("Original:", data.join(", "));\nconsole.log("Sorted:  ", mergeSort(data).join(", "));\n',
+  python:     '# BuildTogether — Python\n\ndef merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left  = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result, i, j = [], 0, 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]: result.append(left[i]); i += 1\n        else: result.append(right[j]); j += 1\n    result.extend(left[i:]); result.extend(right[j:])\n    return result\n\nif __name__ == "__main__":\n    data = [64, 34, 25, 12, 22, 11, 90]\n    print(f"Original: {data}")\n    print(f"Sorted:   {merge_sort(data)}")\n',
+  javascript: '// BuildTogether — JavaScript\n\nfunction mergeSort(arr) {\n  if (arr.length <= 1) return arr;\n  const mid   = Math.floor(arr.length / 2);\n  const left  = mergeSort(arr.slice(0, mid));\n  const right = mergeSort(arr.slice(mid));\n  return merge(left, right);\n}\n\nfunction merge(left, right) {\n  const result = [];\n  let i = 0, j = 0;\n  while (i < left.length && j < right.length) {\n    result.push(left[i] <= right[j] ? left[i++] : right[j++]);\n  }\n  return result.concat(left.slice(i)).concat(right.slice(j));\n}\n\nconst data = [64, 34, 25, 12, 22, 11, 90];\nconsole.log("Original:", data.join(", "));\nconsole.log("Sorted:  ", mergeSort(data).join(", "));\n',
   cpp:        '#include <iostream>\n#include <vector>\nusing namespace std;\n\nvector<int> merge(vector<int> l, vector<int> r) {\n    vector<int> res;\n    int i=0, j=0;\n    while (i<l.size() && j<r.size())\n        res.push_back(l[i]<=r[j] ? l[i++] : r[j++]);\n    while (i<l.size()) res.push_back(l[i++]);\n    while (j<r.size()) res.push_back(r[j++]);\n    return res;\n}\n\nvector<int> mergeSort(vector<int> arr) {\n    if (arr.size() <= 1) return arr;\n    int mid = arr.size()/2;\n    return merge(mergeSort({arr.begin(),arr.begin()+mid}),\n                 mergeSort({arr.begin()+mid,arr.end()}));\n}\n\nint main() {\n    vector<int> data = {64,34,25,12,22,11,90};\n    auto sorted = mergeSort(data);\n    cout << "Sorted: ";\n    for (int x : sorted) cout << x << " ";\n    cout << endl;\n    return 0;\n}\n',
   java:       'import java.util.Arrays;\n\npublic class Main {\n    static int[] mergeSort(int[] arr) {\n        if (arr.length <= 1) return arr;\n        int mid = arr.length / 2;\n        int[] left  = mergeSort(Arrays.copyOfRange(arr, 0, mid));\n        int[] right = mergeSort(Arrays.copyOfRange(arr, mid, arr.length));\n        return merge(left, right);\n    }\n\n    static int[] merge(int[] l, int[] r) {\n        int[] res = new int[l.length + r.length];\n        int i = 0, j = 0, k = 0;\n        while (i<l.length && j<r.length)\n            res[k++] = l[i]<=r[j] ? l[i++] : r[j++];\n        while (i<l.length) res[k++] = l[i++];\n        while (j<r.length) res[k++] = r[j++];\n        return res;\n    }\n\n    public static void main(String[] args) {\n        int[] data = {64,34,25,12,22,11,90};\n        System.out.println("Sorted: " + Arrays.toString(mergeSort(data)));\n    }\n}\n',
   rust:       'fn merge_sort(arr: Vec<i32>) -> Vec<i32> {\n    if arr.len() <= 1 { return arr; }\n    let mid = arr.len() / 2;\n    let left  = merge_sort(arr[..mid].to_vec());\n    let right = merge_sort(arr[mid..].to_vec());\n    merge(left, right)\n}\n\nfn merge(mut l: Vec<i32>, mut r: Vec<i32>) -> Vec<i32> {\n    let mut result = Vec::new();\n    while !l.is_empty() && !r.is_empty() {\n        if l[0] <= r[0] { result.push(l.remove(0)); }\n        else             { result.push(r.remove(0)); }\n    }\n    result.extend(l); result.extend(r); result\n}\n\nfn main() {\n    let data = vec![64,34,25,12,22,11,90];\n    println!("Sorted: {:?}", merge_sort(data));\n}\n',
@@ -2693,7 +2694,7 @@ function addChatBubble(text, who) {
   if (!msgs) return null;
   const div = document.createElement('div');
   div.className = 'msg';
-  const label = who === 'ai' ? 'CodeLab AI' : (APP.username || 'You');
+  const label = who === 'ai' ? 'BuildTogether AI' : (APP.username || 'You');
   const rendered = text
     .replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) =>
       `<pre style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px 10px;overflow-x:auto;font-family:var(--font-code);font-size:11.5px;color:var(--text2);margin:6px 0;white-space:pre-wrap">${escHtml(code.trim())}</pre>`)
@@ -2713,7 +2714,7 @@ function addTypingBubble() {
   const div = document.createElement('div');
   div.className = 'msg';
   div.innerHTML = `
-    <div class="msg-sender ai">CodeLab AI</div>
+    <div class="msg-sender ai">BuildTogether AI</div>
     <div class="typing-indicator">
       <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
     </div>`;
@@ -2726,18 +2727,18 @@ function demoAIReply(msg, code) {
   msg = msg.toLowerCase();
   if (msg.includes('explain')) {
     const lines = code.trim().split('\n').length;
-    return `This code has ${lines} lines. It appears to implement a sorting algorithm. Connect the backend with an \`ANTHROPIC_API_KEY\` for full AI analysis.`;
+    return `This code has ${lines} lines. It appears to implement a sorting algorithm. Connect the backend with a \`GOOGLE_API_KEY\` for full AI analysis.`;
   }
   if (msg.includes('bug') || msg.includes('fix') || msg.includes('error')) {
-    return 'In demo mode I can\'t perform real analysis. Add your `ANTHROPIC_API_KEY` to the `.env` file and restart the server for live AI debugging.';
+    return 'In demo mode I can\'t perform real analysis. Add your `GOOGLE_API_KEY` to the `.env` file and restart the server for live AI debugging.';
   }
   if (msg.includes('optim')) {
-    return 'For performance tips, connect the backend with a Claude API key. The AI will analyze your specific code and suggest targeted optimizations.';
+    return 'For performance tips, connect the backend with a Google API key. The AI will analyze your specific code and suggest targeted optimizations.';
   }
   if (msg.includes('test')) {
     return '```python\nimport unittest\n\nclass TestCode(unittest.TestCase):\n    def test_basic(self):\n        # Add your test cases here\n        self.assertTrue(True)\n\nif __name__ == "__main__":\n    unittest.main()\n```\nConnect the backend for AI-generated tests tailored to your code.';
   }
-  return `Got your message: "${msg}". To enable real AI responses, add \`ANTHROPIC_API_KEY\` to your \`.env\` and run \`python app.py\`.`;
+  return `Got your message: "${msg}". To enable real AI responses, add \`GOOGLE_API_KEY\` to your \`.env\` and run \`python app.py\`.`;
 }
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -2789,12 +2790,12 @@ function selectInviteRole(role, el) {
   inviteRole = role;
   document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
-  const colors = { developer:'#34d399', tester:'#fbbf24', client:'#94a3b8' };
+  const colors = { developer:'#22c55e', tester:'#f59e0b', client:'#a1a1aa' };
   const icons  = { developer:'💻', tester:'🧪', client:'👤' };
   const ind = document.getElementById('roleIndicator');
   if (ind) {
     ind.textContent = `${icons[role]||'👤'} ${role.charAt(0).toUpperCase()+role.slice(1)}`;
-    ind.style.color = colors[role] || '#94a3b8';
+    ind.style.color = colors[role] || '#a1a1aa';
   }
 }
 
