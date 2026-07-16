@@ -533,9 +533,9 @@ if __name__ == "__main__":
         print(f"[Warning] Port {requested} is in use — using port {port} instead")
 
     print(f"""
-╔══════════════════════════════════════════╗
-║   CodeLab — Full-Stack Collaborative IDE ║
-║   http://localhost:{port:<26}║
-╚══════════════════════════════════════════╝
++------------------------------------------+
+|   BuildTogether - Collaborative IDE      |
+|   http://localhost:{port:<24}|
++------------------------------------------+
     """)
     socketio.run(app, host="0.0.0.0", port=port, debug=False)
