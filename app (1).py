@@ -163,6 +163,10 @@ def dashboard():
 def landing():
     return send_from_directory(FRONTEND_DIR, "landing.html")
 
+@app.get("/team")
+def team():
+    return send_from_directory(FRONTEND_DIR, "team.html")
+
 # ─────────────────────────────────────────────────────────────────────────────
 # REST — Health
 # ─────────────────────────────────────────────────────────────────────────────
