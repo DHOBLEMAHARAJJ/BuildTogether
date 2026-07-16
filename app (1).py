@@ -155,6 +155,10 @@ FRONTEND_DIR = Path(__file__).parent
 def index():
     return send_from_directory(FRONTEND_DIR, "index.html")
 
+@app.get("/dashboard")
+def dashboard():
+    return send_from_directory(FRONTEND_DIR, "dashboard.html")
+
 # ─────────────────────────────────────────────────────────────────────────────
 # REST — Health
 # ─────────────────────────────────────────────────────────────────────────────
