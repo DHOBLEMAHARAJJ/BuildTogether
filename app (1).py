@@ -159,6 +159,10 @@ def index():
 def dashboard():
     return send_from_directory(FRONTEND_DIR, "dashboard.html")
 
+@app.get("/landing")
+def landing():
+    return send_from_directory(FRONTEND_DIR, "landing.html")
+
 # ─────────────────────────────────────────────────────────────────────────────
 # REST — Health
 # ─────────────────────────────────────────────────────────────────────────────
