@@ -1,6 +1,6 @@
-# CodeLabs By BetterBytes
+# BuildTogether
 
-**CodeLabs** is a real-time collaborative coding platform developed by **BetterBytes**.  
+**BuildTogether** is a real-time collaborative coding platform developed by **BetterBytes**.  
 It enables multiple developers to write, edit, run, and debug code together in a shared browser-based workspace.
 
 The platform combines **live code synchronization, AI-assisted coding, role-based collaboration, and a secure multi-language execution engine** to improve remote development workflows.
