@@ -9,354 +9,377 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#0b1326;color:#dae2fd;height:100vh;overflow:hidden;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+::selection{background:#4f46e5;color:#fff}
 ::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:#2d3449;border-radius:3px}
-::-webkit-scrollbar-thumb:hover{background:#3d4459}
-::selection{background:rgba(79,70,229,.4);color:#fff}
 
 /* Header */
-.header{display:flex;justify-content:space-between;align-items:center;height:48px;padding:0 20px;background:rgba(11,19,38,.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(70,69,85,.5);flex-shrink:0}
-.header-left{display:flex;align-items:center;gap:32px}
-.logo{font-size:14px;font-weight:700;color:#e0e0e0;letter-spacing:-.3px}
-.nav{display:flex;gap:4px}
-.nav a{font-size:11px;font-weight:600;color:#888;text-decoration:none;padding:5px 12px;border-radius:4px;transition:all .15s;letter-spacing:.5px;text-transform:uppercase}
-.nav a:hover{color:#ccc;background:rgba(45,52,73,.5)}
-.nav a.active{color:#0e639c}
-.header-right{display:flex;align-items:center;gap:8px}
-.search-box{display:flex;align-items:center;gap:6px;background:rgba(23,31,51,.6);border:1px solid rgba(70,69,85,.5);border-radius:4px;padding:4px 12px;width:220px;transition:border-color .15s}
-.search-box:focus-within{border-color:#0e639c}
-.search-box .material-symbols-outlined{font-size:15px;color:#555}
-.search-box input{background:none;border:none;color:#ccc;font-size:12px;outline:none;width:100%;font-family:'Inter',sans-serif}
-.search-box input::placeholder{color:#555}
-.header-icon{font-size:17px;color:#888;padding:4px;border-radius:4px;cursor:pointer;transition:all .15s}
-.header-icon:hover{color:#ccc;background:rgba(45,52,73,.5)}
-.header-divider{width:1px;height:18px;background:rgba(70,69,85,.5)}
-.avatar{width:24px;height:24px;border-radius:50%;border:1px solid rgba(70,69,85,.5)}
+.header{display:flex;justify-content:space-between;align-items:center;height:40px;padding:0 16px;width:100%;z-index:50;background:#0b1326;border-bottom:1px solid #464555}
+.header-left{display:flex;align-items:center;gap:16px}
+.logo{font-size:24px;font-weight:600;color:#dae2fd;letter-spacing:-.01em;line-height:32px}
+.nav-links{display:none;gap:16px;margin-left:24px}
+@media(min-width:768px){.nav-links{display:flex}}
+.nav-links a{font-size:14px;color:#c7c4d8;text-decoration:none;padding:4px 8px;border-radius:.25rem;font-weight:500;transition:all .2s}
+.nav-links a:hover{background:rgba(45,52,73,.5)}
+.nav-links a.active{color:#c3c0ff;font-weight:700;border-bottom:2px solid #c3c0ff;padding-bottom:4px}
+.header-right{display:flex;align-items:center;gap:16px}
+.search-wrap{position:relative}
+.search-wrap input{background:#131b2e;border:1px solid #464555;border-radius:.25rem;padding:4px 32px 4px 8px;font-size:14px;color:#dae2fd;outline:none;transition:all .2s;width:192px}
+@media(min-width:768px){.search-wrap input{width:256px}}
+.search-wrap input:focus{ring:1px solid #c3c0ff}
+.search-wrap .material-symbols-outlined{position:absolute;right:8px;top:6px;color:#c7c4d8;font-size:18px;transform:scale(.75)}
+.header-icons{display:flex;align-items:center;gap:8px}
+.header-btn{background:none;border:none;color:#c7c4d8;cursor:pointer;padding:4px;border-radius:.25rem;transition:all .2s;font-size:20px;line-height:1}
+.header-btn:hover{background:rgba(45,52,73,.5)}
+.avatar-wrap{width:32px;height:32px;border-radius:50%;background:#4f46e5;border:1px solid #464555;overflow:hidden;margin-left:8px}
+.avatar-wrap img{width:100%;height:100%;object-fit:cover}
 
 /* Layout */
 .layout{display:flex;flex:1;overflow:hidden}
 
 /* Sidebar */
-.sidebar{width:220px;background:rgba(23,31,51,.4);border-right:1px solid rgba(70,69,85,.5);display:flex;flex-direction:column;justify-content:space-between;padding:16px 0;flex-shrink:0}
-.sidebar-top{display:flex;flex-direction:column;gap:2px}
-.sidebar-header{display:flex;align-items:center;gap:8px;padding:0 20px 8px}
-.sidebar-header-icon{width:22px;height:22px;border-radius:4px;background:#007acc;display:flex;align-items:center;justify-content:center}
-.sidebar-header-icon .material-symbols-outlined{font-size:14px;color:#fff}
-.sidebar-header span{font-size:10px;font-weight:600;color:#888;letter-spacing:.5px;text-transform:uppercase}
-.sidebar-label{padding:6px 20px 10px;font-size:11px;color:#888}
-.sidebar-item{display:flex;align-items:center;gap:10px;padding:8px 20px;font-size:12px;color:#888;cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
-.sidebar-item:hover{color:#ccc;background:rgba(45,52,73,.3)}
-.sidebar-item.active{color:#fff;border-left-color:#0e639c;background:rgba(14,99,156,.08)}
-.sidebar-item .material-symbols-outlined{font-size:18px}
-.sidebar-bottom{display:flex;flex-direction:column;gap:2px}
+.sidebar{display:none;flex-direction:column;justify-content:space-between;height:100%;background:#131b2e;width:260px;border-right:1px solid #464555;padding:16px 0;flex-shrink:0}
+@media(min-width:768px){.sidebar{display:flex}}
+.sidebar-top{padding:0 16px;margin-bottom:24px}
+.sidebar-badge{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.sidebar-badge-icon{width:24px;height:24px;background:#00a2e6;border-radius:.125rem;display:flex;align-items:center;justify-content:center}
+.sidebar-badge-icon .material-symbols-outlined{font-size:14px;color:#00344e}
+.sidebar-badge-text{font-size:11px;font-weight:600;letter-spacing:.05em;color:#c7c4d8}
+.sidebar-label{font-size:14px;color:rgba(218,226,253,.6);margin-top:4px}
+.sidebar-nav{display:flex;flex-direction:column}
+.sidebar-nav a{display:flex;align-items:center;gap:16px;padding:8px 16px;color:#c7c4d8;border-left:2px solid transparent;text-decoration:none;transition:all .2s}
+.sidebar-nav a:hover{background:rgba(45,52,73,.05)}
+.sidebar-nav a.active{border-left-color:#c3c0ff;background:rgba(195,192,255,.1);color:#c3c0ff}
+.sidebar-nav a .material-symbols-outlined{font-size:20px}
+.sidebar-nav a span:last-child{font-size:11px;font-weight:600;letter-spacing:.05em}
+.sidebar-bottom{display:flex;flex-direction:column}
 
 /* Main */
-.main{flex:1;overflow-y:auto;padding:28px;background:#171f33}
+.main{flex:1;overflow-y:auto;background:#0b1326;padding:24px;position:relative}
+.main-inner{max-width:1152px;margin:0 auto}
 
 /* Page Header */
-.page-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px}
-.page-header h1{font-size:28px;font-weight:700;color:#e0e0e0;letter-spacing:-.5px;margin-bottom:6px}
-.page-header p{font-size:13px;color:#888;line-height:1.5;max-width:480px}
-.btn-invite{display:flex;align-items:center;gap:6px;padding:9px 18px;background:#0e639c;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:all .15s;letter-spacing:.2px}
-.btn-invite:hover{background:#1177bb}
-.btn-invite .material-symbols-outlined{font-size:16px}
+.page-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px}
+.page-title{font-size:48px;font-weight:700;line-height:56px;letter-spacing:-.02em;color:#dae2fd;margin-bottom:8px}
+.page-desc{font-size:14px;color:#c7c4d8;max-width:512px;line-height:20px}
+.btn-invite{background:#4f46e5;color:#dad7ff;padding:8px 24px;border:none;border-radius:.125rem;font-size:11px;font-weight:600;letter-spacing:.05em;display:flex;align-items:center;gap:8px;cursor:pointer;transition:all .2s}
+.btn-invite:hover{filter:brightness(1.1)}
+.btn-invite:active{transform:scale(.95)}
+.btn-invite .material-symbols-outlined{font-size:14px}
 
 /* Tabs */
-.tabs{display:flex;gap:4px;border-bottom:1px solid rgba(70,69,85,.3);margin-bottom:24px}
-.tab{padding:10px 16px;font-size:12px;font-weight:600;color:#888;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;border-radius:4px 4px 0 0}
-.tab:hover{color:#ccc;background:rgba(45,52,73,.2)}
-.tab.active{color:#0e639c;border-bottom-color:#0e639c}
+.tabs{display:flex;border-bottom:1px solid #464555;margin-bottom:24px}
+.tab{padding:16px 24px;border-bottom:2px solid transparent;cursor:pointer;font-weight:500;color:#c7c4d8;transition:all .2s;font-size:14px}
+.tab.active{color:#c3c0ff;font-weight:700;border-bottom-color:#c3c0ff;background:rgba(45,52,73,.05)}
+.tab:hover{color:#dae2fd}
 
 /* Table */
-.table-wrap{background:rgba(23,31,51,.4);border:1px solid rgba(70,69,85,.4);border-radius:8px;overflow:hidden;backdrop-filter:blur(8px)}
-table{width:100%;border-collapse:collapse}
-thead{background:rgba(45,52,73,.3)}
-th{padding:12px 20px;font-size:10px;font-weight:600;color:#888;letter-spacing:.5px;text-transform:uppercase;text-align:left;font-family:'JetBrains Mono',monospace}
-td{padding:14px 20px;border-top:1px solid rgba(70,69,85,.2);font-size:13px}
-tr:hover{background:rgba(45,52,73,.2)}
-.member-info{display:flex;align-items:center;gap:12px}
-.member-avatar{width:36px;height:36px;border-radius:6px;border:1px solid rgba(70,69,85,.3);overflow:hidden;flex-shrink:0;background:rgba(45,52,73,.5)}
+.table-wrap{background:#171f33;border:1px solid #464555;border-radius:.25rem;overflow:hidden}
+table{width:100%;border-collapse:collapse;text-align:left}
+thead{background:#131b2e;border-bottom:1px solid #464555}
+th{padding:16px 24px;font-size:11px;font-weight:600;letter-spacing:.05em;color:#c7c4d8;text-transform:uppercase;font-family:'JetBrains Mono',monospace}
+tbody tr{border-bottom:1px solid rgba(70,69,85,.3)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:rgba(45,52,73,.05)}
+td{padding:16px 24px;font-size:14px}
+.member-info{display:flex;align-items:center;gap:16px}
+.member-avatar{width:40px;height:40px;border-radius:.125rem;background:#222a3d;border:1px solid #464555;overflow:hidden;flex-shrink:0}
 .member-avatar img{width:100%;height:100%;object-fit:cover}
-.member-name{font-weight:600;color:#e0e0e0;font-size:13px}
-.member-email{font-size:11px;color:#888;font-family:'JetBrains Mono',monospace}
-select{background:rgba(45,52,73,.5);border:1px solid rgba(70,69,85,.3);color:#ccc;font-size:11px;font-family:'JetBrains Mono',monospace;padding:5px 10px;border-radius:4px;outline:none;cursor:pointer}
-select:focus{border-color:#0e639c}
-.status-dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:6px}
-.status-dot.online{background:#4ec9b0}
-.status-dot.offline{background:#555}
-.status-text{font-size:11px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.3px}
-.badge{font-size:10px;font-family:'JetBrains Mono',monospace;padding:4px 10px;border-radius:4px;font-weight:600}
-.badge.green{background:rgba(78,201,176,.15);color:#4ec9b0;border:1px solid rgba(78,201,176,.25)}
-.badge.blue{background:rgba(14,99,156,.15);color:#0e639c;border:1px solid rgba(14,99,156,.25)}
-.badge.gray{background:rgba(85,85,85,.2);color:#888;border:1px solid rgba(85,85,85,.3)}
-.row-action{background:none;border:none;color:#555;cursor:pointer;padding:6px;border-radius:4px;transition:all .15s}
-.row-action:hover{color:#888;background:rgba(45,52,73,.3)}
+.member-name{font-size:14px;font-weight:700;color:#dae2fd}
+.member-email{font-size:12px;color:#c7c4d8;font-family:'JetBrains Mono',monospace}
+select{background:#131b2e;border:1px solid #464555;border-radius:.125rem;padding:4px 8px;font-size:12px;font-family:'JetBrains Mono',monospace;color:#dae2fd;outline:none;cursor:pointer}
+select:focus{ring:1px solid #c3c0ff}
+.status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:8px}
+.status-dot.online{background:#89ceff}
+.status-dot.offline{background:#464555}
+.status-label{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-family:'JetBrains Mono',monospace}
+.badge{font-size:12px;font-family:'JetBrains Mono',monospace;padding:2px 8px;border-radius:.125rem;font-weight:400}
+.badge.blue{color:#89ceff;background:rgba(0,162,230,.2);border:1px solid rgba(0,162,230,.3)}
+.badge.purple{color:#c3c0ff;background:rgba(79,70,229,.2);border:1px solid rgba(79,70,229,.3)}
+.badge.gray{color:#c7c4d8;background:rgba(45,52,73,.4);border:1px solid rgba(70,69,85,.3)}
+.row-action{background:none;border:none;color:#c7c4d8;cursor:pointer;padding:4px;transition:color .2s;font-size:20px}
+.row-action:hover{color:#dae2fd}
 
 /* Permissions */
-.perm-section{margin-top:36px}
-.perm-section h2{font-size:20px;font-weight:600;color:#e0e0e0;margin-bottom:18px}
-.perm-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.perm-section{margin-top:48px}
+.perm-title-section{font-size:24px;font-weight:600;letter-spacing:-.01em;color:#dae2fd;margin-bottom:24px;line-height:32px}
+.perm-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 @media(max-width:800px){.perm-grid{grid-template-columns:1fr}}
-.perm-card{background:rgba(23,31,51,.4);border:1px solid rgba(70,69,85,.4);border-radius:8px;padding:22px;backdrop-filter:blur(8px)}
-.perm-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
+.perm-card{background:#131b2e;border:1px solid #464555;padding:24px;border-radius:.25rem}
+.perm-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
 .perm-row:last-child{margin-bottom:0}
-.perm-title{font-size:13px;font-weight:600;color:#e0e0e0;margin-bottom:3px}
-.perm-desc{font-size:11px;color:#888;font-family:'JetBrains Mono',monospace;line-height:1.4}
+.perm-label{font-size:14px;font-weight:700;color:#dae2fd}
+.perm-desc{font-size:12px;color:#c7c4d8;margin-top:4px;font-family:'JetBrains Mono',monospace;line-height:18px}
 /* Toggle */
-.toggle{position:relative;width:44px;height:24px;flex-shrink:0}
-.toggle input{opacity:0;width:0;height:0}
-.toggle-slider{position:absolute;cursor:pointer;inset:0;background:rgba(70,69,85,.5);border-radius:12px;transition:.2s}
-.toggle-slider::before{content:'';position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.2s}
-.toggle input:checked+.toggle-slider{background:#0e639c}
-.toggle input:checked+.toggle-slider::before{transform:translateX(20px)}
+.toggle{position:relative;width:44px;height:24px;flex-shrink:0;cursor:pointer}
+.toggle input{opacity:0;width:0;height:0;position:absolute}
+.toggle-track{position:absolute;inset:0;background:#c7c4d8;border-radius:12px;transition:background .2s}
+.toggle input:checked+.toggle-track{background:#c3c0ff}
+.toggle-thumb{position:absolute;top:2px;left:2px;width:20px;height:20px;background:#fff;border-radius:50%;transition:transform .2s;border:1px solid #d1d5db}
+.toggle input:checked~.toggle-thumb{transform:translateX(20px)}
 
 /* Modal */
-.modal-overlay{display:none;position:fixed;inset:0;z-index:100;background:rgba(11,19,38,.85);backdrop-filter:blur(8px);align-items:center;justify-content:center}
+.modal-overlay{display:none;position:fixed;inset:0;z-index:100;background:rgba(11,19,38,.8);backdrop-filter:blur(4px);align-items:center;justify-content:center}
 .modal-overlay.open{display:flex}
-.modal{background:#171f33;border:1px solid rgba(70,69,85,.4);border-radius:10px;width:100%;max-width:420px;padding:28px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
-.modal h3{font-size:20px;font-weight:600;color:#e0e0e0;margin-bottom:20px}
-.modal-close{background:none;border:none;color:#555;cursor:pointer;font-size:18px;padding:6px;border-radius:4px;transition:all .15s}
-.modal-close:hover{color:#888;background:rgba(45,52,73,.3)}
-.form-group{margin-bottom:18px}
-.form-label{display:block;font-size:10px;font-weight:600;color:#888;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px;font-family:'JetBrains Mono',monospace}
-.form-input{width:100%;background:rgba(11,19,38,.5);border:1px solid rgba(70,69,85,.3);color:#ccc;font-size:13px;padding:10px 12px;border-radius:6px;outline:none;font-family:'Inter',sans-serif}
-.form-input:focus{border-color:#0e639c}
-.form-input::placeholder{color:#555}
+.modal{background:#171f33;border:1px solid #464555;border-radius:.25rem;width:100%;max-width:448px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.modal h3{font-size:24px;font-weight:600;letter-spacing:-.01em;color:#dae2fd;line-height:32px}
+.modal-close{background:none;border:none;color:#c7c4d8;cursor:pointer;padding:4px;transition:color .2s;font-size:20px}
+.modal-close:hover{color:#dae2fd}
+.form-label{display:block;font-size:11px;font-weight:600;letter-spacing:.05em;color:#c7c4d8;text-transform:uppercase;margin-bottom:4px;font-family:'JetBrains Mono',monospace}
+.form-input{width:100%;background:#131b2e;border:1px solid #464555;border-radius:.125rem;padding:8px;color:#dae2fd;font-size:14px;outline:none;transition:all .2s}
+.form-input:focus{ring:1px solid #c3c0ff}
+.form-input::placeholder{color:#464555}
 .role-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.role-btn{padding:10px;border:1px solid rgba(70,69,85,.3);background:rgba(45,52,73,.3);color:#ccc;font-size:11px;font-family:'JetBrains Mono',monospace;border-radius:6px;cursor:pointer;text-align:center;transition:all .15s}
-.role-btn:hover{background:rgba(45,52,73,.5)}
-.role-btn.selected{background:#0e639c;border-color:#0e639c;color:#fff}
-.modal-actions{display:flex;gap:12px;margin-top:24px}
-.modal-btn{flex:1;padding:10px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
-.modal-btn.cancel{background:transparent;border:1px solid rgba(70,69,85,.3);color:#888}
-.modal-btn.cancel:hover{background:rgba(45,52,73,.3);color:#ccc}
-.modal-btn.confirm{background:#0e639c;border:none;color:#fff}
-.modal-btn.confirm:hover{background:#1177bb}
+.role-btn{padding:8px;border:1px solid #464555;background:rgba(45,52,73,.1);color:#dae2fd;font-size:12px;font-family:'JetBrains Mono',monospace;border-radius:.125rem;cursor:pointer;text-align:center;transition:all .2s}
+.role-btn:hover{background:rgba(45,52,73,.2)}
+.role-btn.selected{background:#4f46e5;border-color:#4f46e5;color:#fff}
+.modal-actions{display:flex;gap:16px;margin-top:48px}
+.modal-btn{flex:1;padding:8px;border-radius:.125rem;font-size:11px;font-weight:600;cursor:pointer;letter-spacing:.05em;font-family:'JetBrains Mono',monospace;transition:all .2s}
+.modal-btn.cancel{background:transparent;border:1px solid #464555;color:#c7c4d8}
+.modal-btn.cancel:hover{background:rgba(45,52,73,.5)}
+.modal-btn.confirm{background:#4f46e5;border:none;color:#dad7ff}
+.modal-btn.confirm:hover{filter:brightness(1.1)}
+.modal-btn.confirm:active{transform:scale(.95)}
 
 /* Footer */
-.footer{height:28px;background:#007acc;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:11px;color:#fff;flex-shrink:0}
+.footer{display:flex;justify-content:space-between;align-items:center;padding:24px 48px;background:#060e20;border-top:1px solid #464555;z-index:40;flex-shrink:0}
+.footer-left{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+@media(min-width:768px){.footer-left{margin-bottom:0}}
+.footer-logo{font-size:24px;font-weight:600;color:#dae2fd;opacity:.5;transform:scale(.75);transform-origin:left}
+.footer-copy{font-size:14px;color:#c7c4d8;border-left:1px solid #464555;padding-left:16px}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:11px;font-weight:600;letter-spacing:.05em;color:#c7c4d8;text-decoration:none;transition:color .2s;font-family:'JetBrains Mono',monospace}
+.footer-links a:hover{color:#c3c0ff}
 </style>
 </head>
 <body>
 
 <!-- Header -->
 <header class="header">
-    <div class="header-left">
-        <span class="logo">BuildTogether</span>
-        <nav class="nav">
-            <a href="/">IDE</a>
-            <a href="/dashboard">Projects</a>
-            <a href="/team" class="active">Team</a>
-            <a href="#">Settings</a>
-        </nav>
-    </div>
-    <div class="header-right">
-        <div class="search-box">
-            <input type="text" placeholder="Search team...">
-            <span class="material-symbols-outlined">search</span>
-        </div>
-        <span class="header-icon material-symbols-outlined">notifications</span>
-        <span class="header-icon material-symbols-outlined">history</span>
-        <span class="header-icon material-symbols-outlined" id="theme-toggle">light_mode</span>
-        <div class="header-divider"></div>
-        <img class="avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfxoOblZFz0n6QYj8yiPRDsWrKy7FeXCWs9cPVcVF6g5BbqSAYwoMK8MtWwsHrU4O2dkBD1svAdZslTfWHsA1XoOYA9_-Qli7HoLL4duPzYd5I8lZBtkx2lxkqAAoborUJYSvxGDtIfCQ5Eq1ujyFMBkX8S0XgNH0n9NEItPACgak1ICfMLzKfYk8yYayPuhbKw3ZvHWkGRkmItJ9BEOOR3qjsXyxxbBYGAfKOYNcXeDlGQ5GSvhlj7A" alt="">
-    </div>
+<div class="header-left">
+<span class="logo">BuildTogether</span>
+<nav class="nav-links">
+<a href="/">IDE</a>
+<a href="/dashboard">Projects</a>
+<a href="/team" class="active">Team</a>
+<a href="#">Settings</a>
+</nav>
+</div>
+<div class="header-right">
+<div class="search-wrap">
+<input type="text" placeholder="Search team...">
+<span class="material-symbols-outlined">search</span>
+</div>
+<div class="header-icons">
+<button class="header-btn" title="Toggle Theme" onclick="document.documentElement.classList.toggle('dark')"><span class="material-symbols-outlined">light_mode</span></button>
+<button class="header-btn"><span class="material-symbols-outlined">notifications</span></button>
+<button class="header-btn"><span class="material-symbols-outlined">history</span></button>
+</div>
+<div class="avatar-wrap">
+<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfxoOblZFz0n6QYj8yiPRDsWrKy7FeXCWs9cPVcVF6g5BbqSAYwoMK8MtWwsHrU4O2dkBD1svAdZslTfWHsA1XoOYA9_-Qli7HoLL4duPzYd5I8lZBtkx2lxkqAAoborUJYSvxGDtIfCQ5Eq1ujyFMBkX8S0XgNH0n9NEItPACgak1ICfMLzKfYk8yYayPuhbKw3ZvHWkGRkmItJ9BEOOR3qjsXyxxbBYGAfKOYNcXeDlGQ5GSvhlj7A" alt="">
+</div>
+</div>
 </header>
 
 <div class="layout">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="sidebar-top">
-            <div class="sidebar-header">
-                <div class="sidebar-header-icon"><span class="material-symbols-outlined">hub</span></div>
-                <span>Workspace</span>
-            </div>
-            <div class="sidebar-label">build-together-main</div>
-            <a class="sidebar-item" href="#"><span class="material-symbols-outlined">folder_open</span><span>Explorer</span></a>
-            <a class="sidebar-item" href="#"><span class="material-symbols-outlined">search</span><span>Search</span></a>
-            <a class="sidebar-item" href="#"><span class="material-symbols-outlined">account_tree</span><span>Source Control</span></a>
-            <a class="sidebar-item active" href="#"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">groups</span><span>Team Admin</span></a>
-            <a class="sidebar-item" href="#"><span class="material-symbols-outlined">bug_report</span><span>Debugger</span></a>
-        </div>
-        <div class="sidebar-bottom">
-            <a class="sidebar-item" href="#"><span class="material-symbols-outlined">settings</span><span>Settings</span></a>
-            <a class="sidebar-item" href="#"><span class="material-symbols-outlined">person</span><span>Account</span></a>
-        </div>
-    </aside>
 
-    <!-- Main -->
-    <div class="main">
-        <!-- Page Header -->
-        <div class="page-header">
-            <div>
-                <h1>Team Management</h1>
-                <p>Manage your organization's members, control roles, and audit technical permissions across all active repositories.</p>
-            </div>
-            <button class="btn-invite" onclick="document.getElementById('inviteModal').classList.add('open')">
-                <span class="material-symbols-outlined">person_add</span> Invite Member
-            </button>
-        </div>
+<!-- Sidebar -->
+<aside class="sidebar">
+<div class="sidebar-top">
+<div class="sidebar-badge">
+<div class="sidebar-badge-icon"><span class="material-symbols-outlined">hub</span></div>
+<span class="sidebar-badge-text">WORKSPACE</span>
+</div>
+<span class="sidebar-label">build-together-main</span>
+</div>
+<nav class="sidebar-nav">
+<a href="#"><span class="material-symbols-outlined">folder_open</span><span>Explorer</span></a>
+<a href="#"><span class="material-symbols-outlined">search</span><span>Search</span></a>
+<a href="#"><span class="material-symbols-outlined">account_tree</span><span>Source Control</span></a>
+<a class="active" href="#"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">groups</span><span>Team Admin</span></a>
+<a href="#"><span class="material-symbols-outlined">bug_report</span><span>Debugger</span></a>
+</nav>
+<div class="sidebar-bottom">
+<a href="#"><span class="material-symbols-outlined">settings</span><span>Settings</span></a>
+<a href="#"><span class="material-symbols-outlined">person</span><span>Account</span></a>
+</div>
+</aside>
 
-        <!-- Tabs -->
-        <div class="tabs">
-            <div class="tab active">Members</div>
-            <div class="tab">Security & Permissions</div>
-            <div class="tab">Activity Log</div>
-        </div>
+<!-- Main -->
+<main class="main">
+<div class="main-inner">
 
-        <!-- Members Table -->
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Member</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Access</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="member-info">
-                                <div class="member-avatar"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqp1yzz8NZ9F69kmzqz2Bw2sBp8965tvFMujU0RMFQDR5f4vR2GQs-bi0yfj6NlgznorerY896qhVdu8T-3M64nFrcdQX8roanE9Dhlspjn5hGIGSmym-S-vI2lex4UULTYYeH28OF9z4qN546GVN_DrpvbOQMkPi38DyLkXzubfsLy3XdIgk_Bf5YWKWvKmUvigPxw8xeCi7uy0U5_LopLr2YuJiTl6ju3dRkczM1hUQnSWolMfkg" alt=""></div>
-                                <div>
-                                    <div class="member-name">Alex Rivera</div>
-                                    <div class="member-email">alex@buildtogether.io</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><select><option selected>Owner</option><option>Admin</option><option>Developer</option></select></td>
-                        <td><span class="status-dot online"></span><span class="status-text" style="color:#ccc">Active</span></td>
-                        <td><span class="badge green">Full-Access</span></td>
-                        <td style="text-align:right"><button class="row-action material-symbols-outlined">more_vert</button></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="member-info">
-                                <div class="member-avatar"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuATwfmJ95NMOKUhx4SX7z6cUUkKxgVNAyhdQuS6w_Zkxc008Qz5fgdhFtYhn5Phg5r7VmQLkzpOAj7Zn3g3kVmvaNtxdrUXq1QAmYWW-tWIgctFlUI--gSG8F89RRMR1dYYHdlGWR-GS74iDxGIvdEyhn184najmt7hD1ZJZECouf8ozD8EX56bbmvfvlE2pZqABssWNfseuyllfMYC718m8K2RBldGqgwCRFSua_K5IapjeEviC-iAQQ" alt=""></div>
-                                <div>
-                                    <div class="member-name">Elena Vance</div>
-                                    <div class="member-email">e.vance@buildtogether.io</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><select><option>Owner</option><option selected>Admin</option><option>Developer</option></select></td>
-                        <td><span class="status-dot online"></span><span class="status-text" style="color:#ccc">Active</span></td>
-                        <td><span class="badge blue">Repo-Read</span></td>
-                        <td style="text-align:right"><button class="row-action material-symbols-outlined">more_vert</button></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="member-info">
-                                <div class="member-avatar"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYUMStouvoT5Eppt_1tI7fxbcIbM5z1G7XKF3aNgUYsarPIAAZ82ERRdy034zkI8WnBImqh4em0NOYT2AtXr_qkJFismMxDuedKcBU6yGylai4Rkjg-nZr-FmmHx0dDigCe2FJDd8ACTAuqABVd1dbg2YvjMxVZDMulkE3Zbvf9ieRPWUsM2_moZAsH2-gKmPeLffnQdAWYDihhN34fYJMuVJC6IMATifyg3iU0jJddUPpzPyjW1TimQ" alt=""></div>
-                                <div>
-                                    <div class="member-name">Marcus Chen</div>
-                                    <div class="member-email">marcus@buildtogether.io</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td><select><option>Owner</option><option>Admin</option><option selected>Developer</option></select></td>
-                        <td><span class="status-dot offline"></span><span class="status-text" style="color:#888">Offline</span></td>
-                        <td><span class="badge gray">Scoped</span></td>
-                        <td style="text-align:right"><button class="row-action material-symbols-outlined">more_vert</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<div class="page-header">
+<div>
+<h1 class="page-title">Team Management</h1>
+<p class="page-desc">Manage your organization's members, control roles, and audit technical permissions across all active repositories.</p>
+</div>
+<button class="btn-invite" onclick="document.getElementById('inviteModal').classList.add('open')">
+<span class="material-symbols-outlined">person_add</span> Invite Member
+</button>
+</div>
 
-        <!-- Permissions -->
-        <div class="perm-section">
-            <h2>Default Repository Permissions</h2>
-            <div class="perm-grid">
-                <div class="perm-card">
-                    <div class="perm-row">
-                        <div>
-                            <div class="perm-title">Repository-Level Write</div>
-                            <div class="perm-desc">Allow administrators to push directly to production branches.</div>
-                        </div>
-                        <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
-                    </div>
-                    <div class="perm-row">
-                        <div>
-                            <div class="perm-title">Force Code Review</div>
-                            <div class="perm-desc">Require at least 2 approvals for all pull requests.</div>
-                        </div>
-                        <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
-                    </div>
-                </div>
-                <div class="perm-card">
-                    <div class="perm-row">
-                        <div>
-                            <div class="perm-title">External Collaborators</div>
-                            <div class="perm-desc">Permit adding non-org users to specific private repos.</div>
-                        </div>
-                        <label class="toggle"><input type="checkbox"><span class="toggle-slider"></span></label>
-                    </div>
-                    <div class="perm-row">
-                        <div>
-                            <div class="perm-title">API Token Creation</div>
-                            <div class="perm-desc">Allows team members to generate personal access tokens.</div>
-                        </div>
-                        <label class="toggle"><input type="checkbox"><span class="toggle-slider"></span></label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- Tabs -->
+<div class="tabs">
+<button class="tab active">Members</button>
+<button class="tab">Security &amp; Permissions</button>
+<button class="tab">Activity Log</button>
+</div>
+
+<!-- Members Table -->
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Role</th>
+<th>Status</th>
+<th>Access</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<div class="member-info">
+<div class="member-avatar"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqp1yzz8NZ9F69kmzqz2Bw2sBp8965tvFMujU0RMFQDR5f4vR2GQs-bi0yfj6NlgzwznorerY896qhVdu8T-3M64nFrcdQX8roanE9Dhlspjn5hGIGSmym-S-vI2lex4UULTYYeH28OF9z4qN546GVN_DrpvbOQMkPi38DyLkXzubfsLy3XdIgk_Bf5YWKWvKmUvigPxw8xeCi7uy0U5_LopLr2YuJiTl6ju3dRkczM1hUQnSWolMfkg" alt=""></div>
+<div>
+<div class="member-name">Alex Rivera</div>
+<div class="member-email">alex@buildtogether.io</div>
+</div>
+</div>
+</td>
+<td><select><option selected>Owner</option><option>Admin</option><option>Developer</option></select></td>
+<td><div style="display:flex;align-items:center;gap:8px"><span class="status-dot online"></span><span class="status-label" style="color:#dae2fd;opacity:.8">Active</span></div></td>
+<td><span class="badge blue">Full-Access</span></td>
+<td style="text-align:right"><button class="row-action material-symbols-outlined">more_vert</button></td>
+</tr>
+<tr>
+<td>
+<div class="member-info">
+<div class="member-avatar"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuATwfmJ95NMOKUhx4SX7z6cUUkKxgVNAyhdQuS6w_Zkxc008Qz5fgdhFtYhn5Phg5r7VmQLkzpOAj7Zn3g3kVmvaNtxdrUXq1QAmYWW-tWIgctFlUI--gSG8F89RRMR1dYYHdlGWR-GS74iDxGIvdEyhn184najmt7hD1ZJZECouf8ozD8EX56bbmvfvlE2pZqABssWNfseuyllfMYC718m8K2RBldGqgwCRFSua_K5IapjeEviC-iAQQ" alt=""></div>
+<div>
+<div class="member-name">Elena Vance</div>
+<div class="member-email">e.vance@buildtogether.io</div>
+</div>
+</div>
+</td>
+<td><select><option>Owner</option><option selected>Admin</option><option>Developer</option></select></td>
+<td><div style="display:flex;align-items:center;gap:8px"><span class="status-dot online"></span><span class="status-label" style="color:#dae2fd;opacity:.8">Active</span></div></td>
+<td><span class="badge purple">Repo-Read</span></td>
+<td style="text-align:right"><button class="row-action material-symbols-outlined">more_vert</button></td>
+</tr>
+<tr>
+<td>
+<div class="member-info">
+<div class="member-avatar"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYUMStouvoT5Eppt_1tI7fxbcIbM5z1G7XKF3aNgUYsarPIAAZ82ERRdy034zkI8WnBImqh4em0NOYT2AtXr_qkJFismMxDuedKcBU6yGylai4Rkjg-nZr-FmmHx0dDigCe2FJDd8ACTAuqABVd1dbg2YvjMxVZDMulkE3Zbvf9ieRPWUsM2_moZAsH2-gKmPeLffnQdAWYDihhN34fYJMuVJC6IMATifyg3iU0jJddUPpzPyjW1TimQ" alt=""></div>
+<div>
+<div class="member-name">Marcus Chen</div>
+<div class="member-email">marcus@buildtogether.io</div>
+</div>
+</div>
+</td>
+<td><select><option>Owner</option><option>Admin</option><option selected>Developer</option></select></td>
+<td><div style="display:flex;align-items:center;gap:8px"><span class="status-dot offline"></span><span class="status-label" style="color:#c7c4d8">Offline</span></div></td>
+<td><span class="badge gray">Scoped</span></td>
+<td style="text-align:right"><button class="row-action material-symbols-outlined">more_vert</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- Permissions -->
+<div class="perm-section">
+<h2 class="perm-title-section">Default Repository Permissions</h2>
+<div class="perm-grid">
+<div class="perm-card">
+<div class="perm-row">
+<div>
+<div class="perm-label">Repository-Level Write</div>
+<p class="perm-desc">Allow administrators to push directly to production branches.</p>
+</div>
+<label class="toggle"><input type="checkbox" checked><span class="toggle-track"></span><span class="toggle-thumb"></span></label>
+</div>
+<div class="perm-row">
+<div>
+<div class="perm-label">Force Code Review</div>
+<p class="perm-desc">Require at least 2 approvals for all pull requests.</p>
+</div>
+<label class="toggle"><input type="checkbox" checked><span class="toggle-track"></span><span class="toggle-thumb"></span></label>
+</div>
+</div>
+<div class="perm-card">
+<div class="perm-row">
+<div>
+<div class="perm-label">External Collaborators</div>
+<p class="perm-desc">Permit adding non-org users to specific private repos.</p>
+</div>
+<label class="toggle"><input type="checkbox"><span class="toggle-track"></span><span class="toggle-thumb"></span></label>
+</div>
+<div class="perm-row">
+<div>
+<div class="perm-label">API Token Creation</div>
+<p class="perm-desc">Allows team members to generate personal access tokens.</p>
+</div>
+<label class="toggle"><input type="checkbox"><span class="toggle-track"></span><span class="toggle-thumb"></span></label>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</main>
 </div>
 
 <!-- Invite Modal -->
 <div class="modal-overlay" id="inviteModal">
-    <div class="modal">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
-            <h3>Invite Member</h3>
-            <button class="modal-close material-symbols-outlined" onclick="document.getElementById('inviteModal').classList.remove('open')">close</button>
-        </div>
-        <div class="form-group">
-            <label class="form-label">Email Address</label>
-            <input class="form-input" type="email" placeholder="dev@company.com">
-        </div>
-        <div class="form-group">
-            <label class="form-label">Select Role</label>
-            <div class="role-grid">
-                <button class="role-btn" onclick="selectRole(this)">Owner</button>
-                <button class="role-btn selected" onclick="selectRole(this)">Admin</button>
-                <button class="role-btn" onclick="selectRole(this)">Developer</button>
-            </div>
-        </div>
-        <div class="modal-actions">
-            <button class="modal-btn cancel" onclick="document.getElementById('inviteModal').classList.remove('open')">Cancel</button>
-            <button class="modal-btn confirm" onclick="document.getElementById('inviteModal').classList.remove('open')">Send Invitation</button>
-        </div>
-    </div>
+<div class="modal">
+<div class="modal-header">
+<h3>Invite Member</h3>
+<button class="modal-close material-symbols-outlined" onclick="document.getElementById('inviteModal').classList.remove('open')">close</button>
+</div>
+<div>
+<div style="margin-bottom:16px">
+<label class="form-label">Email Address</label>
+<input class="form-input" type="email" placeholder="dev@company.com">
+</div>
+<div>
+<label class="form-label">Select Role</label>
+<div class="role-grid">
+<button class="role-btn" onclick="selectRole(this)">Owner</button>
+<button class="role-btn selected" onclick="selectRole(this)">Admin</button>
+<button class="role-btn" onclick="selectRole(this)">Developer</button>
+</div>
+</div>
+</div>
+<div class="modal-actions">
+<button class="modal-btn cancel" onclick="document.getElementById('inviteModal').classList.remove('open')">Cancel</button>
+<button class="modal-btn confirm" onclick="document.getElementById('inviteModal').classList.remove('open')">Send Invitation</button>
+</div>
+</div>
 </div>
 
 <!-- Footer -->
 <footer class="footer">
-    <span style="opacity:.6">&copy; 2024 BuildTogether. Technical Precision.</span>
-    <div style="display:flex;gap:16px">
-        <a href="#" style="color:#888;text-decoration:none;font-size:11px;font-family:'JetBrains Mono',monospace">Privacy</a>
-        <a href="#" style="color:#888;text-decoration:none;font-size:11px;font-family:'JetBrains Mono',monospace">Terms</a>
-        <a href="#" style="color:#888;text-decoration:none;font-size:11px;font-family:'JetBrains Mono',monospace">Docs</a>
-        <a href="#" style="color:#888;text-decoration:none;font-size:11px;font-family:'JetBrains Mono',monospace">API</a>
-        <a href="#" style="color:#888;text-decoration:none;font-size:11px;font-family:'JetBrains Mono',monospace">Status</a>
-    </div>
+<div class="footer-left">
+<span class="footer-logo">BuildTogether</span>
+<span class="footer-copy">&copy; 2024 BuildTogether. Technical Precision.</span>
+</div>
+<div class="footer-links">
+<a href="#">Privacy</a>
+<a href="#">Terms</a>
+<a href="#">Documentation</a>
+<a href="#">API</a>
+<a href="#">Status</a>
+</div>
 </footer>
 
 <script>
-// Role selector in modal
-function selectRole(el){
-    document.querySelectorAll('.role-btn').forEach(function(b){b.classList.remove('selected')});
-    el.classList.add('selected');
-}
-// Tab switching
+function selectRole(el){document.querySelectorAll('.role-btn').forEach(function(b){b.classList.remove('selected')});el.classList.add('selected')}
 document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});this.classList.add('active')})});
-// Close modal on Escape
 document.addEventListener('keydown',function(e){if(e.key==='Escape')document.getElementById('inviteModal').classList.remove('open')});
-// Close modal on overlay click
 document.getElementById('inviteModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open')});
 </script>
 </body>
