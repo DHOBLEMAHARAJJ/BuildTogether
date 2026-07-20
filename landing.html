@@ -19,7 +19,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 /* Nav */
 .nav{display:flex;justify-content:space-between;align-items:center;height:40px;padding:0 16px;width:100%;z-index:50;position:fixed;top:0;background:rgba(11,19,38,.95);backdrop-filter:blur(12px);border-bottom:1px solid #464555}
 .nav-left{display:flex;align-items:center;gap:16px}
-.nav-logo{font-size:24px;font-weight:600;color:#dae2fd;letter-spacing:-.01em;line-height:32px}
+.nav-logo{font-size:24px;font-weight:600;color:#dae2fd;letter-spacing:-.01em;line-height:32px;text-decoration:none}
 .nav-links{display:none;gap:16px;margin-left:24px}
 @media(min-width:768px){.nav-links{display:flex}}
 .nav-links a{font-size:11px;font-weight:600;letter-spacing:.05em;color:#c7c4d8;text-decoration:none;padding:4px 8px;border-radius:.125rem;font-family:'JetBrains Mono',monospace;transition:all .2s}
@@ -42,7 +42,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 
 /* Hero */
 .hero{position:relative;padding:128px 16px 80px;min-height:80vh;display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden}
-.hero-inner{max-width:896px;text-center;z-index:10}
+.hero-inner{max-width:896px;text-align:center;z-index:10}
 .hero-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:999px;border:1px solid rgba(195,192,255,.3);background:rgba(195,192,255,.05);color:#c3c0ff;margin-bottom:24px}
 .hero-badge-dot{width:8px;height:8px;border-radius:50%;background:#c3c0ff;animation:pulse-dot 2s ease-in-out infinite}
 .hero-badge-text{font-size:11px;font-weight:600;letter-spacing:.05em;font-family:'JetBrains Mono',monospace}
@@ -52,7 +52,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 .hero p{font-size:18px;color:#c7c4d8;max-width:672px;margin:0 auto;line-height:1.6}
 .hero-btns{display:flex;flex-direction:column;gap:16px;margin-top:48px}
 @media(min-width:640px){.hero-btns{flex-direction:row;justify-content:center}}
-.hero-btn{padding:24px 32px;border-radius:.25rem;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;text-align:center}
+.hero-btn{display:inline-block;padding:24px 32px;border-radius:.25rem;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;text-align:center;text-decoration:none}
 .hero-btn.primary{background:#4f46e5;color:#fff;border:none;box-shadow:0 20px 40px rgba(79,70,229,.2)}
 .hero-btn.primary:hover{filter:brightness(1.1)}
 .hero-btn.secondary{background:transparent;border:1px solid #464555;color:#dae2fd}
@@ -83,7 +83,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 .ide-tree-item .material-symbols-outlined{font-size:18px}
 .ide-tree-item.indent{padding-left:32px}
 .ide-editor{flex:1;background:#0b1326;position:relative;overflow:hidden;display:flex;flex-direction:column}
-.ide-code{padding:24px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:22px;flex:1}
+.ide-code{padding:24px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:22px;flex:1;position:relative}
 .ide-code-line{display:flex;gap:16px}
 .ide-code-line.faded{opacity:.5}
 .ide-code .kw{color:#c3c0ff}
@@ -158,7 +158,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 .cta h2{font-size:48px;line-height:56px;letter-spacing:-.02em;font-weight:700;color:#dae2fd;margin-bottom:16px}
 @media(min-width:768px){.cta h2{font-size:56px;line-height:64px}}
 .cta p{font-size:18px;color:#c7c4d8;max-width:640px;margin:0 auto 32px;line-height:1.6}
-.cta-btn{display:inline-block;padding:48px 64px;background:#c3c0ff;color:#0f0069;border-radius:16px;font-size:24px;font-weight:600;letter-spacing:-.01em;cursor:pointer;border:none;transition:all .2s;font-family:'Inter',sans-serif;box-shadow:0 25px 50px rgba(195,192,255,.3)}
+.cta-btn{display:inline-block;padding:48px 64px;background:#c3c0ff;color:#0f0069;border-radius:16px;font-size:24px;font-weight:600;letter-spacing:-.01em;cursor:pointer;border:none;transition:all .2s;font-family:'Inter',sans-serif;box-shadow:0 25px 50px rgba(195,192,255,.3);text-decoration:none}
 .cta-btn:hover{filter:brightness(1.1)}
 .cta-btn:active{transform:scale(.95)}
 .cta-platforms{margin-top:32px;font-size:11px;font-weight:600;letter-spacing:.05em;color:#c7c4d8;opacity:.6;font-family:'JetBrains Mono',monospace}
@@ -185,11 +185,12 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 <!-- Nav -->
 <nav class="nav">
 <div class="nav-left">
-<span class="nav-logo">BuildTogether</span>
+<a href="/" class="nav-logo">BuildTogether</a>
 <nav class="nav-links">
-<a href="/landing" class="active">Projects</a>
+<a href="/">IDE</a>
+<a href="/dashboard">Projects</a>
+<a href="/landing" class="active">Landing</a>
 <a href="/team">Team</a>
-<a href="#">Settings</a>
 </nav>
 </div>
 <div class="nav-right">
@@ -215,7 +216,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 <h1>Code at the <span>speed of thought</span>, together.</h1>
 <p>The AI-native collaborative IDE that eliminates friction. Real-time synchronization for global teams, context-aware pair programming, and instant cloud-native environments.</p>
 <div class="hero-btns">
-<button class="hero-btn primary">Get Started for Free</button>
+<a href="/" class="hero-btn primary">Get Started for Free</a>
 <button class="hero-btn secondary">Request a Demo</button>
 </div>
 </div>
@@ -361,7 +362,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 <div class="cta-inner">
 <h2>Ready to build the future?</h2>
 <p>Join over 50,000 developers building better software together. Start for free, no credit card required.</p>
-<button class="cta-btn">Sign Up for BuildTogether</button>
+<a href="/" class="cta-btn">Sign Up for BuildTogether</a>
 <p class="cta-platforms">AVAILABLE ON WINDOWS, MACOS, AND LINUX</p>
 </div>
 </section>

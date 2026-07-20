@@ -18,7 +18,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 /* Header */
 .header{display:flex;justify-content:space-between;align-items:center;height:40px;padding:0 16px;background:#0b1326;border-bottom:1px solid #464555;z-index:50;flex-shrink:0}
 .header-left{display:flex;align-items:center;gap:24px}
-.logo{font-size:24px;font-weight:600;color:#dae2fd;letter-spacing:-.01em;line-height:32px}
+.logo{font-size:24px;font-weight:600;color:#dae2fd;letter-spacing:-.01em;line-height:32px;text-decoration:none}
 .nav-links{display:none;gap:12px}
 @media(min-width:768px){.nav-links{display:flex}}
 .nav-links a{font-size:11px;font-weight:600;letter-spacing:.05em;color:#c7c4d8;text-decoration:none;padding:4px 8px;border-radius:.125rem;font-family:'JetBrains Mono',monospace;transition:all .2s}
@@ -86,7 +86,8 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 /* Code Editor */
 .code-container{flex:1;display:flex;overflow:hidden}
 .line-numbers{width:48px;padding:16px 0;text-align:right;padding-right:16px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:22px;color:#464555;user-select:none;background:#060e20;overflow:hidden}
-.code-content{flex:1;padding:16px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:22px;overflow:auto;white-space:pre;position:relative}
+.code-content{flex:1;padding:16px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:22px;overflow:auto;position:relative}
+.code-content code{display:block;white-space:pre}
 .kw{color:#c3c0ff}
 .str{color:#89ceff}
 .cmt{color:#c7c4d8;font-style:italic}
@@ -175,11 +176,12 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 <!-- Header -->
 <header class="header">
 <div class="header-left">
-<span class="logo">BuildTogether</span>
+<a href="/" class="logo">BuildTogether</a>
 <nav class="nav-links">
+<a href="/" class="active">IDE</a>
 <a href="/dashboard">Projects</a>
+<a href="/landing">Landing</a>
 <a href="/team">Team</a>
-<a href="#">Settings</a>
 </nav>
 </div>
 <div class="header-right">
@@ -283,7 +285,7 @@ BUILD-TOGETHER-MAIN
 <div class="code-container">
 <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20</div>
 <div class="code-content">
-<span class="kw">import</span> React <span class="kw">from</span> <span class="str">'react'</span>;
+<code><span class="kw">import</span> React <span class="kw">from</span> <span class="str">'react'</span>;
 <span class="kw">import</span> { Workspace } <span class="kw">from</span> <span class="str">'@build/core'</span>;
 
 <span class="cmt">// Initialize the main collaboration context</span>
@@ -305,8 +307,7 @@ BUILD-TOGETHER-MAIN
     );
 };
 
-<span class="kw">export default</span> Editor;
-<!-- Live Cursors -->
+<span class="kw">export default</span> Editor;</code>
 <div class="cursor primary" style="left:340px;top:148px">
 <div class="cursor-line"></div>
 <div class="cursor-label">Alex</div>

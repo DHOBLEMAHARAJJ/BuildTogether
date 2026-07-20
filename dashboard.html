@@ -19,7 +19,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 /* Header */
 .header{display:flex;justify-content:space-between;align-items:center;height:40px;padding:0 16px;width:100%;z-index:50;position:fixed;top:0;background:#0b1326;border-bottom:1px solid #464555}
 .header-left{display:flex;align-items:center;gap:16px}
-.logo{font-size:24px;font-weight:600;color:#dae2fd;letter-spacing:-.01em;line-height:32px}
+.logo{font-size:24px;font-weight:600;color:#dae2fd;letter-spacing:-.01em;line-height:32px;text-decoration:none}
 .nav-links{display:none;gap:16px;margin-left:24px}
 @media(min-width:768px){.nav-links{display:flex}}
 .nav-links a{font-size:11px;font-weight:600;letter-spacing:.05em;color:#c7c4d8;text-decoration:none;padding:4px 8px;border-radius:.125rem;font-family:'JetBrains Mono',monospace;transition:all .2s}
@@ -197,11 +197,12 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 <!-- Header -->
 <header class="header">
 <div class="header-left">
-<span class="logo">BuildTogether</span>
+<a href="/" class="logo">BuildTogether</a>
 <nav class="nav-links">
+<a href="/">IDE</a>
 <a href="/dashboard" class="active">Projects</a>
+<a href="/landing">Landing</a>
 <a href="/team">Team</a>
-<a href="#">Settings</a>
 </nav>
 </div>
 <div class="header-right">
@@ -226,7 +227,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 <span class="sidebar-value">build-together-main</span>
 </div>
 <nav class="sidebar-nav">
-<a class="active" href="#"><span class="material-symbols-outlined">folder_open</span><span>Explorer</span></a>
+<a class="active" href="/"><span class="material-symbols-outlined">folder_open</span><span>Explorer</span></a>
 <a href="#"><span class="material-symbols-outlined">search</span><span>Search</span></a>
 <a href="#"><span class="material-symbols-outlined">account_tree</span><span>Source Control</span></a>
 <a href="#"><span class="material-symbols-outlined">bug_report</span><span>Debugger</span></a>

@@ -17,7 +17,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 /* Header */
 .header{display:flex;justify-content:space-between;align-items:center;height:40px;padding:0 16px;width:100%;z-index:50;background:#0b1326;border-bottom:1px solid #464555}
 .header-left{display:flex;align-items:center;gap:16px}
-.logo{font-size:24px;font-weight:600;color:#dae2fd;letter-spacing:-.01em;line-height:32px}
+.logo{font-size:24px;font-weight:600;color:#dae2fd;letter-spacing:-.01em;line-height:32px;text-decoration:none}
 .nav-links{display:none;gap:16px;margin-left:24px}
 @media(min-width:768px){.nav-links{display:flex}}
 .nav-links a{font-size:14px;color:#c7c4d8;text-decoration:none;padding:4px 8px;border-radius:.25rem;font-weight:500;transition:all .2s}
@@ -159,12 +159,12 @@ select:focus{ring:1px solid #c3c0ff}
 <!-- Header -->
 <header class="header">
 <div class="header-left">
-<span class="logo">BuildTogether</span>
+<a href="/" class="logo">BuildTogether</a>
 <nav class="nav-links">
 <a href="/">IDE</a>
 <a href="/dashboard">Projects</a>
+<a href="/landing">Landing</a>
 <a href="/team" class="active">Team</a>
-<a href="#">Settings</a>
 </nav>
 </div>
 <div class="header-right">
