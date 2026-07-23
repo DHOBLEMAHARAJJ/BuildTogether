@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Inter',sans-serif;background:#0b1326;color:#dae2fd;-webkit-font-smoothing:antialiased}
+*{margin:0;padding:0;box-sizing:border-box}
+::selection{background:rgba(195,192,255,.3)}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#2d3449;border-radius:8px}
+a{text-decoration:none}
+button{cursor:pointer;font-family:inherit}
+input,textarea,select{font-family:inherit}
+
+<style>
+.layout{display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.nav{display:flex;justify-content:space-between;align-items:center;height:40px;padding:0 16px;width:100%;z-index:50;background:#0b1326;border-bottom:1px solid #464555;flex-shrink:0}
+.nav-l{display:flex;align-items:center;gap:24px}
+.nav-brand{font-size:24px;font-weight:700;color:#dae2fd;letter-spacing:-.01em}
+.nav-links{display:none;align-items:center;gap:8px}
+@media(min-width:768px){.nav-links{display:flex}}
+.nav-links a{font-size:13px;color:#c7c4d8;padding:4px 8px;border-radius:4px;transition:all .2s;font-family:'Inter',sans-serif}
+.nav-links a:hover{background:rgba(45,52,73,.5)}
+.nav-links a.active{color:#c3c0ff;border-bottom:2px solid #c3c0ff;font-weight:600}
+.nav-r{display:flex;align-items:center;gap:8px}
+.nav-search{position:relative}
+.nav-search input{background:#131b2e;border:1px solid #464555;border-radius:8px;padding:4px 32px 4px 12px;font-size:14px;color:#dae2fd;outline:none;width:256px;transition:all .2s}
+.nav-search input:focus{border-color:#c3c0ff}
+.nav-search .m{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:16px;color:#c7c4d8}
+.nav-icon{background:none;border:none;color:#c7c4d8;padding:4px;border-radius:4px;transition:all .2s;line-height:1}
+.nav-icon:hover{background:rgba(45,52,73,.5)}
+.nav-icon .m{font-size:20px}
+.nav-avatar{width:32px;height:32px;border-radius:50%;border:1px solid #464555;overflow:hidden;margin-left:8px}
+.nav-avatar img{width:100%;height:100%;object-fit:cover}
+
+.body{display:flex;flex:1;overflow:hidden}
+.sidebar{width:260px;background:#131b2e;border-right:1px solid #464555;display:none;flex-direction:column;justify-content:space-between;padding:16px 0;flex-shrink:0}
+@media(min-width:768px){.sidebar{display:flex}}
+.sidebar-top{display:flex;flex-direction:column;gap:8px}
+.sidebar-head{padding:0 16px 16px}
+.sidebar-head-label{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.sidebar-head-label .icon{width:24px;height:24px;background:#00a2e6;border-radius:4px;display:flex;align-items:center;justify-content:center}
+.sidebar-head-label .icon .m{font-size:14px;color:#00344e}
+.sidebar-head-label span{font-size:11px;font-weight:600;color:#c7c4d8;letter-spacing:.15em;text-transform:uppercase;font-family:'JetBrains Mono',monospace}
+.sidebar-head-sub{font-size:14px;color:#dae2fd;opacity:.6}
+.sidebar-nav{display:flex;flex-direction:column}
+.sidebar-nav-item{display:flex;align-items:center;gap:12px;padding:8px 16px;color:#c7c4d8;border-left:2px solid transparent;transition:all .2s;font-size:11px;font-weight:600;letter-spacing:.05em;font-family:'JetBrains Mono',monospace}
+.sidebar-nav-item:hover{background:rgba(45,52,73,.3)}
+.sidebar-nav-item.active{border-left-color:#c3c0ff;background:rgba(195,192,255,.1);color:#c3c0ff}
+.sidebar-nav-item .m{font-size:20px}
+.sidebar-bottom{display:flex;flex-direction:column}
+.sidebar-bottom .sidebar-nav-item{border-left:none}
+
+.main{flex:1;overflow-y:auto;background:#0b1326;padding:24px;position:relative}
+.main-inner{max-width:1152px;margin:0 auto}
+.page-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px}
+.page-header h1{font-size:48px;line-height:56px;letter-spacing:-.02em;font-weight:700;margin-bottom:8px}
+.page-header p{font-size:14px;color:#c7c4d8;max-width:512px;line-height:1.6}
+.invite-btn{display:flex;align-items:center;gap:8px;padding:8px 24px;background:#4f46e5;color:#dad7ff;border:none;border-radius:4px;font-size:11px;font-weight:600;letter-spacing:.05em;font-family:'JetBrains Mono',monospace;transition:all .2s}
+.invite-btn:hover{filter:brightness(1.1)}
+.invite-btn:active{transform:scale(.95)}
+.invite-btn .m{font-size:16px}
+
+.tabs{display:flex;border-bottom:1px solid #464555;margin-bottom:24px}
+.tab{padding:12px 24px;border-bottom:2px solid transparent;font-weight:500;color:#c7c4d8;cursor:pointer;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;font-size:14px}
+.tab.active{border-bottom-color:#c3c0ff;color:#c3c0ff;font-weight:700}
+.tab:hover{color:#dae2fd}
+
+.table-wrap{background:#171f33;border:1px solid #464555;border-radius:8px;overflow:hidden}
+table{width:100%;border-collapse:collapse}
+thead{background:#131b2e;border-bottom:1px solid #464555}
+th{padding:12px 24px;font-size:11px;font-weight:600;color:#c7c4d8;text-transform:uppercase;letter-spacing:.05em;text-align:left;font-family:'JetBrains Mono',monospace}
+tbody tr{border-bottom:1px solid rgba(70,69,85,.3);transition:all .2s}
+tbody tr:hover{background:rgba(45,52,73,.3)}
+tbody td{padding:12px 24px}
+.member-cell{display:flex;align-items:center;gap:12px}
+.member-avatar{width:40px;height:40px;border-radius:4px;border:1px solid #464555;overflow:hidden}
+.member-avatar img{width:100%;height:100%;object-fit:cover}
+.member-name{font-size:14px;font-weight:700;color:#dae2fd}
+.member-email{font-size:12px;color:#c7c4d8}
+select{background:#131b2e;border:1px solid #464555;border-radius:4px;padding:4px 8px;font-size:12px;color:#dae2fd;outline:none;cursor:pointer}
+select:focus{border-color:#c3c0ff}
+.status-dot{display:flex;align-items:center;gap:4px}
+.status-dot .dot{width:8px;height:8px;border-radius:50%}
+.status-dot .dot.on{background:#89ceff}
+.status-dot .dot.off{background:#464555}
+.status-dot span{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;font-family:'JetBrains Mono',monospace}
+.badge{font-size:12px;padding:2px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace}
+.badge.full{color:#89ceff;background:rgba(137,206,255,.2);border:1px solid rgba(137,206,255,.3)}
+.badge.read{color:#c3c0ff;background:rgba(195,192,255,.2);border:1px solid rgba(195,192,255,.3)}
+.badge.scoped{color:#c7c4d8;background:rgba(45,52,73,.4);border:1px solid rgba(70,69,85,.3)}
+
+.perms{margin-top:48px}
+.perms h2{font-size:24px;line-height:32px;font-weight:600;margin-bottom:24px}
+.perms-grid{display:grid;grid-template-columns:1fr;gap:24px}
+@media(min-width:768px){.perms-grid{grid-template-columns:repeat(2,1fr)}}
+.perm-card{background:#131b2e;border:1px solid #464555;padding:24px;border-radius:8px}
+.perm-item{display:flex;justify-content:space-between;align-items:flex-start}
+.perm-item+.perm-item{margin-top:24px}
+.perm-item h4{font-size:14px;font-weight:700;color:#dae2fd;margin-bottom:4px}
+.perm-item p{font-size:12px;color:#c7c4d8}
+.toggle{position:relative;width:44px;height:24px;cursor:pointer;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-track{position:absolute;inset:0;background:#2d3449;border-radius:999px;transition:all .2s}
+.toggle input:checked+.toggle-track{background:#c3c0ff}
+.toggle-thumb{position:absolute;top:2px;left:2px;width:20px;height:20px;background:#fff;border-radius:50%;transition:all .2s}
+.toggle input:checked~.toggle-thumb{transform:translateX(20px)}
+
+.modal-overlay{display:none;position:fixed;inset:0;z-index:100;background:rgba(11,19,38,.8);backdrop-filter:blur(4px);align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal{background:#171f33;border:1px solid #464555;border-radius:8px;width:100%;max-width:448px;padding:24px;box-shadow:0 25px 50px rgba(0,0,0,.5)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.modal-head h3{font-size:24px;line-height:32px;font-weight:600}
+.modal-head .m{font-size:20px;color:#c7c4d8;cursor:pointer}
+.modal-head .m:hover{color:#dae2fd}
+.form-group{margin-bottom:24px}
+.form-group label{display:block;font-size:11px;font-weight:600;color:#c7c4d8;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px;font-family:'JetBrains Mono',monospace}
+.form-group input{width:100%;background:#131b2e;border:1px solid #464555;border-radius:4px;padding:8px;font-size:14px;color:#dae2fd;outline:none}
+.form-group input:focus{border-color:#c3c0ff}
+.role-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.role-btn{border:1px solid #464555;background:rgba(45,52,73,.1);padding:8px;border-radius:4px;font-size:12px;color:#dae2fd;text-align:center;cursor:pointer;transition:all .2s;font-family:'JetBrains Mono',monospace}
+.role-btn.active{border-color:#c3c0ff;background:#4f46e5;color:#fff}
+.role-btn:hover{background:rgba(45,52,73,.3)}
+.modal-actions{display:flex;gap:16px;margin-top:32px}
+.modal-actions button{flex:1;padding:8px;border-radius:4px;font-size:11px;font-weight:600;letter-spacing:.05em;font-family:'JetBrains Mono',monospace;transition:all .2s}
+.modal-cancel{background:transparent;border:1px solid #464555;color:#c7c4d8}
+.modal-cancel:hover{background:rgba(45,52,73,.5)}
+.modal-send{background:#4f46e5;border:none;color:#dad7ff}
+.modal-send:hover{filter:brightness(1.1)}
+.modal-send:active{transform:scale(.95)}
+</style>
+</head>
+<body>
+<div class="layout">
+<header class="nav">
+<div class="nav-l">
+<span class="nav-brand">BuildTogether</span>
+<div class="nav-links">
+<a href="/dashboard">Projects</a>
+<a class="active" href="/team">Team</a>
+<a href="/">IDE</a>
+</div>
+</div>
+<div class="nav-r">
+<div class="nav-search"><input type="text" placeholder="Search team..."><span class="m material-symbols-outlined">search</span></div>
+<button class="nav-icon"><span class="m material-symbols-outlined">notifications</span></button>
+<button class="nav-icon"><span class="m material-symbols-outlined">history</span></button>
+<div class="nav-avatar"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfxoOblZFz0n6QYj8yiPRDsWrKy7FeXCWs9cPVcVF6g5BbqSAYwoMK8MtWwsHrU4O2dkBD1svAdZslTfWHsA1XoOYA9_-Qli7HoLL4duPzYd5I8lZBtkx2lxkqAAoborUJYSvxGDtIfCQ5Eq1ujyFMBkX8S0XgNH0n9NEItPACgak1ICfMLzKfYk8yYayPuhbKw3ZvHWkGRkmItJ9BEOOR3qjsXyxxbBYGAfKOYNcXeDlGQ5GSvhlj7A" alt=""></div>
+</div>
+</header>
+
+<div class="body">
+<aside class="sidebar">
+<div class="sidebar-top">
+<div class="sidebar-head">
+<div class="sidebar-head-label"><div class="icon"><span class="m material-symbols-outlined">hub</span></div><span>Workspace</span></div>
+<div class="sidebar-head-sub">build-together-main</div>
+</div>
+<nav class="sidebar-nav">
+<div class="sidebar-nav-item"><span class="m material-symbols-outlined">folder_open</span><span>Explorer</span></div>
+<div class="sidebar-nav-item"><span class="m material-symbols-outlined">search</span><span>Search</span></div>
+<div class="sidebar-nav-item"><span class="m material-symbols-outlined">account_tree</span><span>Source Control</span></div>
+<div class="sidebar-nav-item active"><span class="m material-symbols-outlined" style="font-variation-settings:'FILL' 1">groups</span><span>Team Admin</span></div>
+<div class="sidebar-nav-item"><span class="m material-symbols-outlined">bug_report</span><span>Debugger</span></div>
+</nav>
+</div>
+<div class="sidebar-bottom">
+<div class="sidebar-nav-item"><span class="m material-symbols-outlined">settings</span><span>Settings</span></div>
+<div class="sidebar-nav-item"><span class="m material-symbols-outlined">person</span><span>Account</span></div>
+</div>
+</aside>
+
+<main class="main">
+<div class="main-inner">
+<div class="page-header">
+<div><h1>Team Management</h1><p>Manage your organization's members, control roles, and audit technical permissions across all active repositories.</p></div>
+<button class="invite-btn" onclick="document.getElementById('inviteModal').classList.add('show')"><span class="m material-symbols-outlined">person_add</span>Invite Member</button>
+</div>
+
+<div class="tabs">
+<button class="tab active">Members</button>
+<button class="tab">Security & Permissions</button>
+<button class="tab">Activity Log</button>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Member</th><th>Role</th><th>Status</th><th>Access</th><th></th></tr></thead>
+<tbody>
+<tr>
+<td><div class="member-cell"><div class="member-avatar"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqp1yzz8NZ9F69kmzqz2Bw2sBp8965tvFMujU0RMFQDR5f4vR2GQs-bi0yfj6NlgzwznorerY896qhVdu8T-3M64nFrcdQX8roanE9Dhlspjn5hGIGSmym-S-vI2lex4UULTYYeH28OF9z4qN546GVN_DrpvbOQMkPi38DyLkXzubfsLy3XdIgk_Bf5YWKWvKmUvigPxw8xeCi7uy0U5_LopLr2YuJiTl6ju3dRkczM1hUQnSWolMfkg" alt=""></div><div><div class="member-name">Alex Rivera</div><div class="member-email">alex@buildtogether.io</div></div></div></td>
+<td><select><option selected>Owner</option><option>Admin</option><option>Developer</option></select></td>
+<td><div class="status-dot"><div class="dot on"></div><span style="color:#dae2fd">Active</span></div></td>
+<td><span class="badge full">Full-Access</span></td>
+<td><button class="nav-icon"><span class="m material-symbols-outlined">more_vert</span></button></td>
+</tr>
+<tr>
+<td><div class="member-cell"><div class="member-avatar"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuATwfmJ95NMOKUhx4SX7z6cUUkKxgVNAyhdQuS6w_Zkxc008Qz5fgdhFtYhn5Phg5r7VmQLkzpOAj7Zn3g3kVmvaNtxdrUXq1QAmYWW-tWIgctFlUI--gSG8F89RRMR1dYYHdlGWR-GS74iDxGIvdEyhn184najmt7hD1ZJZECouf8ozD8EX56bbmvfvlE2pZqABssWNfseuyllfMYC718m8K2RBldGqgwCRFSua_K5IapjeEviC-iAQQ" alt=""></div><div><div class="member-name">Elena Vance</div><div class="member-email">e.vance@buildtogether.io</div></div></div></td>
+<td><select><option>Owner</option><option selected>Admin</option><option>Developer</option></select></td>
+<td><div class="status-dot"><div class="dot on"></div><span style="color:#dae2fd">Active</span></div></td>
+<td><span class="badge read">Repo-Read</span></td>
+<td><button class="nav-icon"><span class="m material-symbols-outlined">more_vert</span></button></td>
+</tr>
+<tr>
+<td><div class="member-cell"><div class="member-avatar"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYUMStouvoT5Eppt_1tI7fxbcIbM5z1G7XKF3aNgUYsarPIAAZ82ERRdy034zkI8WnBImqh4em0NOYT2AtXr_qkJFismMxDuedKcBU6yGylai4Rkjg-nZr-FmmHx0dDigCe2FJDd8ACTAuqABVd1dbg2YvjMxVZDMulkE3Zbvf9ieRPWUsM2_moZAsH2-gKmPeLffnQdAWYDihhN34fYJMuVJC6IMATifyg3iU0jJddUPpzPyjW1TimQ" alt=""></div><div><div class="member-name">Marcus Chen</div><div class="member-email">marcus@buildtogether.io</div></div></div></td>
+<td><select><option>Owner</option><option>Admin</option><option selected>Developer</option></select></td>
+<td><div class="status-dot"><div class="dot off"></div><span style="color:#c7c4d8">Offline</span></div></td>
+<td><span class="badge scoped">Scoped</span></td>
+<td><button class="nav-icon"><span class="m material-symbols-outlined">more_vert</span></button></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="perms">
+<h2>Default Repository Permissions</h2>
+<div class="perms-grid">
+<div class="perm-card">
+<div class="perm-item"><div><h4>Repository-Level Write</h4><p>Allow administrators to push directly to production branches.</p></div><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
+<div class="perm-item"><div><h4>Force Code Review</h4><p>Require at least 2 approvals for all pull requests.</p></div><label class="toggle"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
+</div>
+<div class="perm-card">
+<div class="perm-item"><div><h4>External Collaborators</h4><p>Permit adding non-org users to specific private repos.</p></div><label class="toggle"><input type="checkbox"><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
+<div class="perm-item"><div><h4>API Token Creation</h4><p>Allows team members to generate personal access tokens.</p></div><label class="toggle"><input type="checkbox"><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+<footer style="display:flex;align-items:center;justify-content:space-between;padding:8px 48px;width:100%;background:#060e20;border-top:1px solid #464555;z-index:40;flex-shrink:0">
+<span style="font-size:14px;color:#c7c4d8;opacity:.6">© 2024 BuildTogether. Technical Precision.</span>
+<div class="footer-links">
+<a href="#">Privacy</a><a href="#">Terms</a><a href="#">Documentation</a><a href="#">API</a><a href="#">Status</a>
+</div>
+</footer>
+</div>
+
+<div class="modal-overlay" id="inviteModal">
+<div class="modal">
+<div class="modal-head"><h3>Invite Member</h3><span class="m material-symbols-outlined" onclick="document.getElementById('inviteModal').classList.remove('show')">close</span></div>
+<div class="form-group"><label>Email Address</label><input type="email" placeholder="dev@company.com"></div>
+<div class="form-group"><label>Select Role</label>
+<div class="role-grid">
+<div class="role-btn">Owner</div>
+<div class="role-btn active">Admin</div>
+<div class="role-btn">Developer</div>
+</div>
+</div>
+<div class="modal-actions">
+<button class="modal-cancel" onclick="document.getElementById('inviteModal').classList.remove('show')">Cancel</button>
+<button class="modal-send">Send Invitation</button>
+</div>
+</div>
+</div>
+<script>
+document.querySelectorAll('.role-btn').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.role-btn').forEach(function(x){x.classList.remove('active')});this.classList.add('active')})});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')document.getElementById('inviteModal').classList.remove('show')});
+</script>
+</body></html>

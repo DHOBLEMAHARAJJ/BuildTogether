@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Inter',sans-serif;background:#0b1326;color:#dae2fd;-webkit-font-smoothing:antialiased}
+*{margin:0;padding:0;box-sizing:border-box}
+::selection{background:rgba(195,192,255,.3)}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#2d3449;border-radius:8px}
+a{text-decoration:none}
+button{cursor:pointer;font-family:inherit}
+input,textarea,select{font-family:inherit}
+
+<style>
+.nav{display:flex;justify-content:space-between;align-items:center;height:40px;padding:0 16px;width:100%;position:fixed;top:0;z-index:50;background:#0b1326;border-bottom:1px solid #464555}
+.nav-l{display:flex;align-items:center;gap:24px}
+.nav-brand{font-size:24px;font-weight:700;color:#dae2fd;letter-spacing:-.01em}
+.nav-links{display:none;align-items:center;gap:8px}
+@media(min-width:768px){.nav-links{display:flex}}
+.nav-links a{font-size:11px;font-weight:600;color:#c7c4d8;padding:4px 8px;border-radius:4px;letter-spacing:.05em;text-transform:uppercase;font-family:'JetBrains Mono',monospace;transition:all .2s}
+.nav-links a:hover{background:rgba(45,52,73,.5)}
+.nav-links a.active{color:#c3c0ff;border-bottom:2px solid #c3c0ff}
+.nav-r{display:flex;align-items:center;gap:8px}
+.nav-search{display:none;align-items:center;gap:4px;padding:4px 12px;border:1px solid #464555;border-radius:8px;font-size:14px;color:#c7c4d8;background:#131b2e}
+@media(min-width:640px){.nav-search{display:flex}}
+.nav-search .m{font-size:16px}
+.nav-icon{background:none;border:none;color:#c7c4d8;padding:4px;border-radius:4px;transition:all .2s;line-height:1}
+.nav-icon:hover{background:rgba(45,52,73,.5)}
+.nav-icon .m{font-size:20px}
+.nav-div{width:1px;height:24px;background:#464555;margin:0 4px}
+.nav-btn{padding:4px 16px;background:#4f46e5;color:#fff;border:none;border-radius:4px;font-size:11px;font-weight:600;letter-spacing:.05em;font-family:'JetBrains Mono',monospace;transition:all .2s}
+.nav-btn:hover{filter:brightness(1.1)}
+.nav-avatar{width:32px;height:32px;border-radius:50%;border:1px solid #464555;overflow:hidden;cursor:pointer;transition:all .2s;margin-left:8px}
+.nav-avatar:hover{border-color:#c3c0ff}
+.nav-avatar img{width:100%;height:100%;object-fit:cover}
+
+.hero{position:relative;padding:128px 16px 80px;overflow:hidden;min-height:819px;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:999px;border:1px solid rgba(195,192,255,.3);background:rgba(195,192,255,.05);color:#c3c0ff;margin-bottom:24px}
+.hero-badge-dot{width:8px;height:8px;border-radius:50%;background:#c3c0ff;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.hero-badge span{font-size:11px;font-weight:600;letter-spacing:.05em;font-family:'JetBrains Mono',monospace}
+.hero h1{font-size:48px;line-height:56px;letter-spacing:-.02em;font-weight:700;text-align:center;color:#dae2fd;max-width:4xl}
+@media(min-width:768px){.hero h1{font-size:64px;line-height:72px}}
+.hero h1 em{color:#c3c0ff;font-style:italic}
+.hero p{font-size:16px;color:#c7c4d8;text-align:center;max-width:640px;margin:16px auto 0;line-height:1.6}
+.hero-btns{display:flex;flex-direction:column;gap:16px;margin-top:48px;width:100%;max-width:320px}
+@media(min-width:640px){.hero-btns{flex-direction:row;width:auto}}
+.hero-btn-primary{padding:16px 24px;background:#4f46e5;color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:600;transition:all .2s;box-shadow:0 4px 20px rgba(79,70,229,.3)}
+.hero-btn-primary:hover{filter:brightness(1.1)}
+.hero-btn-secondary{padding:16px 24px;background:transparent;border:1px solid #464555;color:#dae2fd;border-radius:8px;font-size:16px;font-weight:600;transition:all .2s}
+.hero-btn-secondary:hover{background:rgba(45,52,73,.5)}
+
+.showcase{padding:0 16px 128px;max-width:1152px;margin:0 auto}
+.showcase-wrap{position:relative}
+.showcase-glow{position:absolute;inset:-4px;background:linear-gradient(90deg,rgba(195,192,255,.5),rgba(137,206,255,.5));border-radius:12px;filter:blur(16px);opacity:.2;transition:opacity .3s}
+.showcase-wrap:hover .showcase-glow{opacity:.3}
+.showcase-panel{position:relative;background:rgba(23,31,51,.7);backdrop-filter:blur(12px);border:1px solid #464555;border-radius:12px;overflow:hidden;box-shadow:0 25px 50px rgba(0,0,0,.5)}
+.showcase-toolbar{height:32px;background:#222a3d;border-bottom:1px solid #464555;display:flex;align-items:center;padding:0 16px;justify-content:space-between}
+.showcase-dots{display:flex;gap:6px}
+.showcase-dot{width:12px;height:12px;border-radius:50%}
+.showcase-dot.r{background:rgba(255,180,171,.4)}
+.showcase-dot.y{background:rgba(137,206,255,.4)}
+.showcase-dot.p{background:rgba(195,192,255,.4)}
+.showcase-title{font-size:11px;font-weight:600;color:#c7c4d8;opacity:.6;letter-spacing:.05em;font-family:'JetBrains Mono',monospace}
+.showcase-body{display:flex;height:600px}
+.showcase-sidebar{width:260px;background:#131b2e;border-right:1px solid #464555;display:none;flex-direction:column;padding:16px 0}
+@media(min-width:768px){.showcase-sidebar{display:flex}}
+.showcase-sidebar-head{padding:0 16px 16px;display:flex;justify-content:space-between;align-items:center}
+.showcase-sidebar-head span{font-size:11px;font-weight:600;color:#c7c4d8;letter-spacing:.15em;text-transform:uppercase;font-family:'JetBrains Mono',monospace}
+.showcase-sidebar-head .m{font-size:14px}
+.showcase-sidebar-item{display:flex;align-items:center;gap:8px;padding:6px 16px;font-size:14px;color:#c7c4d8;transition:all .2s;border-left:2px solid transparent}
+.showcase-sidebar-item:hover{background:rgba(45,52,73,.3)}
+.showcase-sidebar-item.active{border-left-color:#c3c0ff;background:rgba(195,192,255,.1);color:#c3c0ff}
+.showcase-sidebar-item.sub{padding-left:32px}
+.showcase-sidebar-item .m{font-size:18px}
+.showcase-editor{flex:1;background:#060e20;position:relative;overflow:hidden}
+.showcase-code{padding:24px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:22px;position:relative}
+.showcase-code-bg{position:absolute;inset:0;pointer-events:none;opacity:.03;background-image:radial-gradient(#4f46e5 .5px,transparent .5px);background-size:20px 20px}
+.code-line{display:flex;gap:16px}
+.code-line.faded{opacity:.5}
+.code-line .ln{width:32px;color:rgba(70,69,85,.4);user-select:none;text-align:right}
+.kw{color:#c3c0ff;font-weight:600}
+.st{color:#89ceff}
+.cm{color:#918fa1;font-style:italic}
+.fn{color:#ffb695}
+.cursor-anim{position:absolute;left:180px;top:0;height:20px;width:2px;background:#c3c0ff;animation:blink 1s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.cursor-label{position:absolute;left:180px;top:-20px;background:#c3c0ff;padding:2px 6px;border-radius:2px;font-size:9px;font-weight:700;color:#0f0069;font-family:'JetBrains Mono',monospace}
+.ai-box{margin:16px 0 16px 48px;padding:16px;background:rgba(23,31,51,.7);border:1px solid rgba(195,192,255,.4);border-left:4px solid #4f46e5;border-radius:0 8px 8px 0}
+.ai-box-head{display:flex;align-items:center;gap:4px;margin-bottom:8px}
+.ai-box-head .m{font-size:16px;color:#c3c0ff}
+.ai-box-head span{font-size:11px;font-weight:600;color:#c3c0ff;letter-spacing:.05em;font-family:'JetBrains Mono',monospace}
+.ai-box p{font-size:14px;color:#c7c4d8;font-style:italic;margin-bottom:12px}
+.ai-box-btns{display:flex;gap:8px}
+.ai-box-btns button{padding:4px 12px;border-radius:4px;font-size:12px;font-weight:600;border:none}
+.ai-box-btns .accept{background:#c3c0ff;color:#0f0069}
+.ai-box-btns .ignore{background:transparent;border:1px solid #464555;color:#c7c4d8}
+
+.social-proof{padding:64px 16px;border-y:1px solid #464555;background:#131b2e}
+.social-proof p{font-size:11px;font-weight:600;color:#c7c4d8;letter-spacing:.15em;text-align:center;text-transform:uppercase;opacity:.6;margin-bottom:24px;font-family:'JetBrains Mono',monospace}
+.social-proof-logos{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:48px;opacity:.5;filter:grayscale(1);transition:all .5s}
+.social-proof-logos:hover{filter:grayscale(0)}
+.social-proof-logos .logo{display:flex;align-items:center;gap:8px}
+.social-proof-logos .m{font-size:32px}
+.social-proof-logos span{font-size:24px;font-weight:700}
+
+.features{padding:128px 16px;max-width:1152px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:24px}
+@media(min-width:768px){.features{grid-template-columns:repeat(3,1fr)}}
+.feature-card{padding:24px;border:1px solid #464555;background:#060e20;border-radius:12px;transition:all .3s}
+.feature-card:hover{border-color:rgba(195,192,255,.5)}
+.feature-icon{width:48px;height:48px;background:rgba(195,192,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#c3c0ff;margin-bottom:16px;transition:transform .3s}
+.feature-card:hover .feature-icon{transform:scale(1.1)}
+.feature-icon .m{font-size:28px}
+.feature-card h3{font-size:24px;line-height:32px;letter-spacing:-.01em;font-weight:600;margin-bottom:8px}
+.feature-card p{font-size:14px;line-height:20px;color:#c7c4d8}
+
+.bento{padding:0 16px 128px;max-width:1152px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:24px}
+@media(min-width:768px){.bento{grid-template-columns:repeat(2,1fr)}}
+.bento-wide{grid-column:1/-1;position:relative;background:rgba(23,31,51,.7);backdrop-filter:blur(12px);border-radius:16px;padding:48px;display:flex;flex-direction:column;gap:24px;min-height:400px;border:1px solid #464555;overflow:hidden}
+@media(min-width:768px){.bento-wide{flex-direction:row;align-items:center}}
+.bento-wide-l{flex:1}
+.bento-wide-l .label{font-size:11px;font-weight:600;color:#c3c0ff;letter-spacing:.05em;font-family:'JetBrains Mono',monospace;margin-bottom:8px}
+.bento-wide-l h2{font-size:32px;line-height:40px;font-weight:700;margin-bottom:12px}
+.bento-wide-l p{font-size:16px;color:#c7c4d8;line-height:1.6;margin-bottom:16px}
+.bento-wide-l ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.bento-wide-l li{display:flex;align-items:center;gap:8px;color:#c7c4d8;font-size:14px}
+.bento-wide-l li .m{color:#c3c0ff;font-size:20px}
+.bento-wide-r{flex:1;width:100%;min-height:250px;border-radius:12px;border:1px solid #464555;background:rgba(0,0,0,.4);overflow:hidden;position:relative}
+.bento-wide-r pre{position:absolute;inset:0;padding:16px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#c3c0ff;opacity:.3;line-height:1.6}
+.bento-wide-r .icon-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.bento-wide-r .icon-center .m{font-size:64px;color:#c3c0ff;opacity:.5;animation:pulse 2s infinite}
+.bento-card{background:rgba(23,31,51,.7);backdrop-filter:blur(12px);border-radius:16px;padding:24px;border:1px solid #464555;transition:all .3s}
+.bento-card:hover{background:rgba(34,42,61,.7)}
+.bento-card-head{display:flex;align-items:center;gap:16px;margin-bottom:12px}
+.bento-card-icon{width:40px;height:40px;border-radius:4px;display:flex;align-items:center;justify-content:center}
+.bento-card-icon .m{font-size:20px}
+.bento-card-icon.green{background:rgba(74,222,128,.1);color:#4ade80}
+.bento-card-icon.blue{background:rgba(137,206,255,.1);color:#89ceff}
+.bento-card h3{font-size:24px;line-height:32px;font-weight:600}
+.bento-card p{font-size:14px;color:#c7c4d8;line-height:1.6}
+
+.cta{padding:128px 16px;text-align:center;border-top:1px solid #464555;position:relative;overflow:hidden}
+.cta h2{font-size:48px;line-height:56px;letter-spacing:-.02em;font-weight:700;margin-bottom:16px}
+.cta p{font-size:16px;color:#c7c4d8;max-width:576px;margin:0 auto 32px;line-height:1.6}
+.cta button{padding:24px 48px;background:#c3c0ff;color:#1d00a5;border:none;border-radius:12px;font-size:24px;line-height:32px;font-weight:600;transition:all .2s;box-shadow:0 25px 50px rgba(195,192,255,.3)}
+.cta button:hover{filter:brightness(1.1)}
+.cta button:active{transform:scale(.95)}
+.cta .sub{font-size:11px;font-weight:600;color:#c7c4d8;letter-spacing:.15em;text-transform:uppercase;opacity:.6;margin-top:16px;font-family:'JetBrains Mono',monospace}
+
+.footer{background:#060e20;border-top:1px solid #464555;width:100%}
+.footer-inner{display:flex;flex-direction:column;align-items:center;gap:16px;padding:24px;max-width:1280px;margin:0 auto}
+@media(min-width:768px){.footer-inner{flex-direction:row;justify-content:space-between}}
+.footer-brand{text-align:center}
+@media(min-width:768px){.footer-brand{text-align:left}}
+.footer-brand .name{font-size:24px;font-weight:700;color:#dae2fd;letter-spacing:-.01em}
+.footer-brand .copy{font-size:14px;color:#c7c4d8;margin-top:4px}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.footer-links a{font-size:11px;font-weight:600;color:#c7c4d8;letter-spacing:.05em;font-family:'JetBrains Mono',monospace;transition:color .2s}
+.footer-links a:hover{color:#c3c0ff}
+.footer-social{display:flex;gap:8px}
+.footer-social button{width:32px;height:32px;border:1px solid #464555;border-radius:4px;background:transparent;display:flex;align-items:center;justify-content:center;color:#c7c4d8;transition:all .2s}
+.footer-social button:hover{background:rgba(45,52,73,.5)}
+.footer-social .m{font-size:20px}
+</style>
+</head>
+<body>
+<nav class="nav">
+<div class="nav-l">
+<span class="nav-brand">BuildTogether</span>
+<div class="nav-links">
+<a class="active" href="/landing">Projects</a>
+<a href="/team">Team</a>
+<a href="/dashboard">Dashboard</a>
+<a href="/">IDE</a>
+</div>
+</div>
+<div class="nav-r">
+<div class="nav-search"><span class="m material-symbols-outlined">search</span><span>Search codebase...</span></div>
+<button class="nav-icon"><span class="m material-symbols-outlined">notifications</span></button>
+<button class="nav-icon"><span class="m material-symbols-outlined">history</span></button>
+<div class="nav-div"></div>
+<button class="nav-btn">Run</button>
+<div class="nav-avatar"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFZaWxNq_LcQ1z2hmI8tFfXlYHkqj3eOzZErpg-a3n5Tija1Y9lRyGyJoLwqWXZWlyHcaOPit3YF6nPjMO_9xbPEcVQD70vMQjc5Z6EwQBgrYzXRbb_BR8czv6royCh9PdAksiKfCpjmGnwDpW9_PgzvLspwGASplUS_GAxH-aAY0RNB0aStEeNH-c5nATIrirLwDeqd03Cv8ZJgjKAhF7sxuvczgc2ydBr8X5y8D2WoKtyAZjN5vT4Q" alt=""></div>
+</div>
+</nav>
+
+<header class="hero">
+<div style="max-width:896px;text-align:center;z-index:10">
+<div class="hero-badge"><div class="hero-badge-dot"></div><span>v2.0 Beta: Multi-model AI Integration is Live</span></div>
+<h1>Code at the <em>speed of thought</em>, together.</h1>
+<p>The AI-native collaborative IDE that eliminates friction. Real-time synchronization for global teams, context-aware pair programming, and instant cloud-native environments.</p>
+<div class="hero-btns">
+<button class="hero-btn-primary">Get Started for Free</button>
+<button class="hero-btn-secondary">Request a Demo</button>
+</div>
+</div>
+</header>
+
+<section class="showcase">
+<div class="showcase-wrap">
+<div class="showcase-glow"></div>
+<div class="showcase-panel">
+<div class="showcase-toolbar">
+<div class="showcase-dots"><div class="showcase-dot r"></div><div class="showcase-dot y"></div><div class="showcase-dot p"></div></div>
+<div class="showcase-title">src/main.ts — BuildTogether</div>
+<div style="width:48px"></div>
+</div>
+<div class="showcase-body">
+<div class="showcase-sidebar">
+<div class="showcase-sidebar-head"><span>Workspace</span><span class="m material-symbols-outlined">add</span></div>
+<div class="showcase-sidebar-item active"><span class="m material-symbols-outlined">folder_open</span><span>src</span></div>
+<div class="showcase-sidebar-item sub"><span class="m material-symbols-outlined">javascript</span><span>app.ts</span></div>
+<div class="showcase-sidebar-item sub"><span class="m material-symbols-outlined">settings</span><span>config.json</span></div>
+</div>
+<div class="showcase-editor">
+<div class="showcase-code">
+<div class="showcase-code-bg"></div>
+<div class="code-line faded"><span class="ln">1</span><span><span class="kw">import</span> { Engine } <span class="kw">from</span> <span class="st">"@core/engine"</span>;</span></div>
+<div class="code-line faded"><span class="ln">2</span><span></span></div>
+<div class="code-line"><span class="ln">3</span><span><span class="kw">async function</span> <span class="fn">initializeWorkspace</span>() {</span></div>
+<div class="code-line"><span class="ln">4</span><span>  <span class="kw">const</span> engine = <span class="kw">new</span> <span class="fn">Engine</span>({</span></div>
+<div class="code-line"><span class="ln">5</span><span>    cluster: <span class="st">"us-west-2"</span>,</span></div>
+<div class="code-line" style="position:relative"><span class="ln">6</span><span>    realtime: <span class="kw">true</span></span><div class="cursor-anim"></div><div class="cursor-label">Alex (Writing...)</div></div>
+<div class="code-line"><span class="ln">7</span><span>  });</span></div>
+<div class="code-line"><span class="ln">8</span><span></span></div>
+<div class="ai-box">
+<div class="ai-box-head"><span class="m material-symbols-outlined" style="font-variation-settings:'FILL' 1">auto_awesome</span><span>AI PAIR ASSISTANT</span></div>
+<p>Would you like to implement the error handler for the engine initialization?</p>
+<div class="ai-box-btns"><button class="accept">Accept (Tab)</button><button class="ignore">Ignore (Esc)</button></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="social-proof">
+<p>Trusted by modern engineering teams</p>
+<div class="social-proof-logos">
+<div class="logo"><span class="m material-symbols-outlined">cloud_done</span><span>BetterBytes</span></div>
+<div class="logo"><span class="m material-symbols-outlined">hub</span><span>CloudFlow</span></div>
+<div class="logo"><span class="m material-symbols-outlined">terminal</span><span>DevKernel</span></div>
+<div class="logo"><span class="m material-symbols-outlined">bolt</span><span>VeloSync</span></div>
+</div>
+</section>
+
+<section class="features">
+<div class="feature-card"><div class="feature-icon"><span class="m material-symbols-outlined">sync</span></div><h3>Real-time Synchronization</h3><p>Industry-leading CRDT implementation ensures sub-50ms sync latency. Collaborate with thousands of developers on the same file without conflicts.</p></div>
+<div class="feature-card"><div class="feature-icon"><span class="m material-symbols-outlined">auto_awesome</span></div><h3>AI-Powered Pair Programming</h3><p>Context-aware AI that understands your entire codebase, not just the active file. Get high-precision suggestions that actually compile.</p></div>
+<div class="feature-card"><div class="feature-icon"><span class="m material-symbols-outlined">contacts</span></div><h3>Instant Provisioning</h3><p>Zero-config environments spin up in under 2 seconds. Fully containerized workspaces that match your production environment perfectly.</p></div>
+</section>
+
+<section class="bento">
+<div class="bento-wide">
+<div class="bento-wide-l">
+<div class="label">SCALABILITY</div>
+<h2>Infinite Scale Workspace for Massive Repos</h2>
+<p>BuildTogether handles mono-repos with millions of files without slowing down. Our proprietary indexing engine keeps search and navigation instantaneous.</p>
+<ul>
+<li><span class="m material-symbols-outlined">check_circle</span><span>Sparse checkout architecture</span></li>
+<li><span class="m material-symbols-outlined">check_circle</span><span>Cloud-native symbol indexing</span></li>
+</ul>
+</div>
+<div class="bento-wide-r">
+<pre>// Indexing shard 892...<br>// Loaded 1.2M symbols in 0.4s<br>// Cache hit: 99.8%<br>// Node status: Healthy<br>// Indexing shard 893...<br>// Loaded 1.2M symbols in 0.4s<br>// Cache hit: 99.8%<br>// Node status: Healthy</pre>
+<div class="icon-center"><span class="m material-symbols-outlined">database</span></div>
+</div>
+</div>
+<div class="bento-card">
+<div class="bento-card-head"><div class="bento-card-icon green"><span class="m material-symbols-outlined">verified_user</span></div><h3>Secure by Design</h3></div>
+<p>Enterprise-grade security is baked into the core. SOC2 Type II compliant, end-to-end encryption for code in transit and at rest, and per-workspace network isolation.</p>
+</div>
+<div class="bento-card">
+<div class="bento-card-head"><div class="bento-card-icon blue"><span class="m material-symbols-outlined">api</span></div><h3>API First</h3></div>
+<p>Extensible by design. Build custom workflows with our robust SDK and CLI tools. Integrate directly with your CI/CD pipelines and internal developer portals.</p>
+</div>
+</section>
+
+<section class="cta">
+<h2>Ready to build the future?</h2>
+<p>Join over 50,000 developers building better software together. Start for free, no credit card required.</p>
+<div><button>Sign Up for BuildTogether</button></div>
+<div class="sub">Available on Windows, macOS, and Linux</div>
+</section>
+
+<footer class="footer">
+<div class="footer-inner">
+<div class="footer-brand"><div class="name">BuildTogether</div><div class="copy">© 2024 BuildTogether. Technical Precision.</div></div>
+<div class="footer-links">
+<a href="#">Privacy</a><a href="#">Terms</a><a href="#">Documentation</a><a href="#">API</a><a href="#">Status</a>
+</div>
+<div class="footer-social">
+<button><span class="m material-symbols-outlined">terminal</span></button>
+<button><span class="m material-symbols-outlined">public</span></button>
+</div>
+</div>
+</footer>
+</body></html>

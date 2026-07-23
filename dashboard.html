@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Inter',sans-serif;background:#0b1326;color:#dae2fd;-webkit-font-smoothing:antialiased}
+*{margin:0;padding:0;box-sizing:border-box}
+::selection{background:rgba(195,192,255,.3)}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#2d3449;border-radius:8px}
+a{text-decoration:none}
+button{cursor:pointer;font-family:inherit}
+input,textarea,select{font-family:inherit}
+
+<style>
+.layout{display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.nav{display:flex;justify-content:space-between;align-items:center;height:40px;padding:0 16px;width:100%;position:fixed;top:0;z-index:50;background:#0b1326;border-bottom:1px solid #464555}
+.nav-l{display:flex;align-items:center;gap:24px}
+.nav-brand{font-size:24px;font-weight:700;color:#dae2fd;letter-spacing:-.01em}
+.nav-links{display:none;align-items:center;gap:8px}
+@media(min-width:768px){.nav-links{display:flex}}
+.nav-links a{font-size:11px;font-weight:600;color:#c7c4d8;padding:4px 8px;border-radius:4px;letter-spacing:.05em;font-family:'JetBrains Mono',monospace;transition:all .2s;text-transform:uppercase}
+.nav-links a:hover{background:rgba(45,52,73,.5)}
+.nav-links a.active{color:#c3c0ff;border-bottom:2px solid #c3c0ff}
+.nav-r{display:flex;align-items:center;gap:8px}
+.nav-search{position:relative}
+.nav-search input{background:#131b2e;border:1px solid #464555;border-radius:8px;padding:4px 32px 4px 32px;font-size:12px;color:#dae2fd;outline:none;width:192px;transition:all .2s;font-family:'JetBrains Mono',monospace}
+.nav-search input:focus{border-color:#c3c0ff}
+.nav-search .m{position:absolute;left:8px;top:50%;transform:translateY(-50%);font-size:16px;color:#c7c4d8}
+.nav-icon{background:none;border:none;color:#c7c4d8;padding:4px;border-radius:4px;transition:all .2s;line-height:1}
+.nav-icon:hover{background:rgba(45,52,73,.5)}
+.nav-icon .m{font-size:20px}
+.nav-avatar{width:24px;height:24px;border-radius:50%;border:1px solid #464555;overflow:hidden;margin-left:8px}
+.nav-avatar img{width:100%;height:100%;object-fit:cover}
+
+.body{display:flex;flex:1;overflow:hidden;padding-top:40px}
+.sidebar{width:260px;background:#131b2e;border-right:1px solid #464555;display:none;flex-direction:column;justify-content:space-between;padding:16px 0;flex-shrink:0}
+@media(min-width:1024px){.sidebar{display:flex}}
+.sidebar-top{display:flex;flex-direction:column;gap:4px}
+.sidebar-head{padding:8px 16px 16px}
+.sidebar-head span{font-size:11px;font-weight:600;color:#c7c4d8;letter-spacing:.15em;text-transform:uppercase;font-family:'JetBrains Mono',monospace;display:block;opacity:.6}
+.sidebar-head .val{font-size:12px;color:#c3c0ff;font-family:'JetBrains Mono',monospace;display:block;margin-top:4px}
+.sidebar-nav{display:flex;flex-direction:column}
+.sidebar-nav-item{display:flex;align-items:center;gap:12px;padding:8px 16px;color:#c7c4d8;border-left:2px solid transparent;transition:all .2s;cursor:pointer}
+.sidebar-nav-item:hover{background:rgba(45,52,73,.3)}
+.sidebar-nav-item.active{border-left-color:#c3c0ff;background:rgba(195,192,255,.1);color:#c3c0ff}
+.sidebar-nav-item .m{font-size:20px}
+.sidebar-nav-item span{font-size:11px;font-weight:600;letter-spacing:.05em;font-family:'JetBrains Mono',monospace}
+.sidebar-bottom{padding-bottom:16px}
+.sidebar-bottom .sidebar-nav-item{border-left:none}
+
+.main{flex:1;overflow-y:auto;background:#0b1326;position:relative}
+.main-pad{padding:24px;max-width:1280px;margin:0 auto}
+.dash-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.dash-header h1{font-size:24px;line-height:32px;letter-spacing:-.01em;font-weight:600}
+.dash-header p{font-size:14px;color:#c7c4d8}
+.new-project-btn{display:flex;align-items:center;gap:8px;padding:8px 24px;background:#4f46e5;color:#dad7ff;border:none;border-radius:8px;font-size:11px;font-weight:600;letter-spacing:.05em;font-family:'JetBrains Mono',monospace;transition:all .2s;box-shadow:0 2px 8px rgba(79,70,229,.2)}
+.new-project-btn:hover{filter:brightness(1.1)}
+.new-project-btn:active{transform:scale(.95)}
+.new-project-btn .m{font-size:20px}
+
+.filter-bar{display:flex;align-items:center;gap:16px;padding:8px 16px;background:#131b2e;border:1px solid #464555;border-radius:8px;margin-bottom:16px}
+.filter-bar .m{color:#c7c4d8;font-size:20px}
+.filter-bar span{font-size:11px;font-weight:600;color:#c7c4d8;letter-spacing:.05em;font-family:'JetBrains Mono',monospace;white-space:nowrap;cursor:pointer}
+.filter-bar span.active{color:#c3c0ff;font-weight:700}
+.filter-bar span:hover{color:#dae2fd}
+
+.grid{display:grid;grid-template-columns:1fr;gap:24px}
+@media(min-width:1280px){.grid-main{grid-template-columns:repeat(12,1fr)}.grid-8{grid-column:span 8}.grid-4{grid-column:span 4}}
+.cards{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:768px){.cards{grid-template-columns:repeat(2,1fr)}}
+
+.card-lg{grid-column:1/-1;background:#131b2e;border:1px solid #464555;padding:24px;border-radius:12px;position:relative;overflow:hidden;transition:border-color .3s}
+.card-lg:hover{border-color:#c3c0ff}
+.card-lg-bg{position:absolute;top:0;right:0;padding:16px;opacity:.1}
+.card-lg-bg .m{font-size:96px}
+.card-lg-head{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1}
+.card-lg-title{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.card-lg-title .dot{width:8px;height:8px;border-radius:50%;background:#4ade80;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.card-lg-title h3{font-size:24px;line-height:32px;font-weight:600}
+.card-lg p{font-size:14px;color:#c7c4d8;max-width:512px;line-height:1.6;margin-bottom:16px;position:relative;z-index:1}
+.card-avatars{display:flex;margin-left:auto}
+.card-avatars .av{width:32px;height:32px;border-radius:50%;border:2px solid #131b2e;overflow:hidden;margin-left:-8px}
+.card-avatars .av:last-child{display:flex;align-items:center;justify-content:center;background:#2d3449;font-size:10px;font-weight:700;color:#c7c4d8}
+.card-avatars .av img{width:100%;height:100%;object-fit:cover}
+.card-lg-footer{display:flex;justify-content:space-between;align-items:flex-end;margin-top:24px;padding-top:24px;border-top:1px solid rgba(70,69,85,.3);position:relative;z-index:1}
+.sparkline svg{width:192px;height:48px}
+.sparkline-label{font-size:11px;font-weight:600;color:#c7c4d8;letter-spacing:.05em;font-family:'JetBrains Mono',monospace;display:block;margin-bottom:8px}
+.card-stat{display:flex;align-items:center;gap:32px}
+.card-stat-num{font-size:20px;font-weight:700;color:#dae2fd}
+.card-stat-label{font-size:11px;font-weight:600;color:#c7c4d8;letter-spacing:.05em;font-family:'JetBrains Mono',monospace}
+
+.card-sm{background:#131b2e;border:1px solid #464555;padding:16px;border-radius:12px;transition:border-color .3s}
+.card-sm:hover{border-color:#c3c0ff}
+.card-sm-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.card-sm h3{font-size:18px;line-height:24px;font-weight:600}
+.card-sm .tag{font-size:12px;padding:2px 8px;background:rgba(45,52,73,.4);color:#c7c4d8;border-radius:4px;font-family:'JetBrains Mono',monospace}
+.card-sm-row{display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:#c7c4d8;letter-spacing:.05em;font-family:'JetBrains Mono',monospace;margin-bottom:12px}
+.card-sm-footer{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#c7c4d8}
+.card-sm-footer .hl{color:#dae2fd;font-weight:700}
+.card-sm-sparkline svg{width:100%;height:32px}
+
+.card-empty{border:1px dashed #464555;padding:16px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;cursor:pointer;transition:all .3s}
+.card-empty:hover{border-color:#c3c0ff}
+.card-empty .m{font-size:48px;color:#c7c4d8;transition:color .3s}
+.card-empty:hover .m{color:#c3c0ff}
+.card-empty span{font-size:11px;font-weight:600;color:#c7c4d8;letter-spacing:.05em;font-family:'JetBrains Mono',monospace}
+
+.sidebar-panel{background:#131b2e;border:1px solid #464555;border-radius:12px;overflow:hidden}
+.sidebar-panel-head{padding:12px 16px;border-bottom:1px solid #464555;display:flex;justify-content:space-between;align-items:center;background:#171f33}
+.sidebar-panel-head h3{font-size:11px;font-weight:600;color:#dae2fd;letter-spacing:.05em;font-family:'JetBrains Mono',monospace}
+.sidebar-panel-head .m{font-size:20px;color:#c7c4d8}
+.sidebar-panel-body{padding:16px}
+
+.activity-item{display:flex;gap:12px;margin-bottom:16px}
+.activity-icon{width:32px;height:32px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.activity-icon .m{font-size:16px}
+.activity-icon.primary{background:rgba(195,192,255,.1);color:#c3c0ff}
+.activity-icon.tertiary{background:rgba(255,182,149,.2);color:#ffb695}
+.activity-icon.error{background:rgba(255,180,171,.1);color:#ffb4ab}
+.activity-icon.secondary{background:rgba(137,206,255,.1);color:#89ceff}
+.activity-text{font-size:12px;color:#dae2fd;line-height:1.4}
+.activity-text .hl{font-weight:700}
+.activity-text .link{color:#c3c0ff;font-weight:700}
+.activity-meta{font-size:10px;color:#c7c4d8;margin-top:2px}
+.view-all-btn{width:100%;padding:8px;text-align:center;font-size:11px;font-weight:600;color:#c7c4d8;border-top:1px solid #464555;cursor:pointer;transition:all .2s;background:transparent;border-left:none;border-right:none;border-bottom:none;letter-spacing:.05em;font-family:'JetBrains Mono',monospace}
+.view-all-btn:hover{background:rgba(45,52,73,.3)}
+
+.deploy-card{padding:8px;background:#060e20;border:1px solid rgba(70,69,85,.3);border-radius:8px;position:relative;overflow:hidden;margin-bottom:12px}
+.deploy-card:last-child{margin-bottom:0}
+.deploy-bar{position:absolute;left:0;top:0;bottom:0;width:4px}
+.deploy-bar.primary{background:#c3c0ff}
+.deploy-bar.tertiary{background:#ffb695}
+.deploy-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.deploy-head .label{font-size:11px;font-weight:600;letter-spacing:.05em;font-family:'JetBrains Mono',monospace}
+.deploy-head .label.primary{color:#c3c0ff}
+.deploy-head .label.tertiary{color:#ffb695}
+.deploy-head .time{font-size:12px;color:#c7c4d8;font-family:'JetBrains Mono',monospace}
+.deploy-card p{font-size:13px;font-weight:700;color:#dae2fd}
+.deploy-card .status-row{display:flex;align-items:center;gap:4px;margin-top:8px}
+.deploy-card .status-row .m{font-size:14px;color:#c7c4d8}
+.deploy-card .status-row span{font-size:10px;color:#c7c4d8}
+
+.perf-bar{margin-bottom:12px}
+.perf-bar:last-child{margin-bottom:0}
+.perf-bar-head{display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px}
+.perf-bar-head .name{color:#dae2fd}
+.perf-bar-track{height:6px;width:100%;background:#2d3449;border-radius:999px;overflow:hidden}
+.perf-bar-fill{height:100%;border-radius:999px}
+.perf-bar-fill.primary{background:#c3c0ff}
+.perf-bar-fill.secondary{background:#89ceff}
+.perf-bar-fill.tertiary{background:#ffb695}
+
+.total-velocity{padding:16px;background:rgba(79,70,229,.1);border-top:1px solid #464555}
+.total-velocity .label{font-size:11px;font-weight:600;color:#c7c4d8;letter-spacing:.05em;font-family:'JetBrains Mono',monospace;opacity:.8;display:block;margin-bottom:4px}
+.total-velocity .val{font-size:24px;font-weight:700;color:#c3c0ff}
+.total-velocity .change{display:flex;justify-content:space-between;align-items:flex-end}
+.total-velocity .right{text-align:right}
+.total-velocity .right .pct{font-size:12px;font-weight:700;color:#4ade80}
+.total-velocity .right .sub{font-size:10px;color:#c7c4d8;font-family:'JetBrains Mono',monospace}
+
+.footer-bar{background:#060e20;border-top:1px solid #464555;padding:8px 48px;display:flex;justify-content:space-between;align-items:center}
+.footer-bar span{font-size:14px;color:#c7c4d8;opacity:.6}
+.footer-links{display:flex;gap:24px;align-items:center}
+.footer-links a{font-size:11px;font-weight:600;color:#c7c4d8;letter-spacing:.05em;font-family:'JetBrains Mono',monospace;transition:color .2s}
+.footer-links a:hover{color:#c3c0ff}
+.footer-links .status{display:flex;align-items:center;gap:4px}
+.footer-links .status .dot{width:6px;height:6px;border-radius:50%;background:#4ade80}
+</style>
+</head>
+<body>
+<div class="layout">
+<header class="nav">
+<div class="nav-l">
+<span class="nav-brand">BuildTogether</span>
+<div class="nav-links">
+<a class="active" href="/dashboard">Projects</a>
+<a href="/team">Team</a>
+<a href="/">IDE</a>
+</div>
+</div>
+<div class="nav-r">
+<div class="nav-search"><span class="m material-symbols-outlined">search</span><input type="text" placeholder="Search projects..."></div>
+<button class="nav-icon"><span class="m material-symbols-outlined">notifications</span></button>
+<button class="nav-icon"><span class="m material-symbols-outlined">history</span></button>
+<div class="nav-avatar"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAs1_-VoDDnaflomw4p82gNPX0siwfoVU_jFpEuHeTqc2bRg07E1TQLud8qmBmCxE7WXRh5UD8iM_Xi4Tst1Q7BlfRWSMSUygaw0SC5vbw3bZNwiytlND_MRNLRuTWc5XvwM-YP_9NL0qa8CkQoROe8VAHVT4vTrDPFpuDVxf8kD8GkpM5JGDtvhc6vkX9ZEowIRVt4rFNflGZYXuJNxrGJTFR9_sq8LsCnGF3jonq9MPO3lIQ1xptzgQ" alt=""></div>
+</div>
+</header>
+
+<div class="body">
+<aside class="sidebar">
+<div class="sidebar-top">
+<div class="sidebar-head"><span>WORKSPACE</span><span class="val">build-together-main</span></div>
+<nav class="sidebar-nav">
+<div class="sidebar-nav-item active"><span class="m material-symbols-outlined">folder_open</span><span>Explorer</span></div>
+<div class="sidebar-nav-item"><span class="m material-symbols-outlined">search</span><span>Search</span></div>
+<div class="sidebar-nav-item"><span class="m material-symbols-outlined">account_tree</span><span>Source Control</span></div>
+<div class="sidebar-nav-item"><span class="m material-symbols-outlined">bug_report</span><span>Debugger</span></div>
+<div class="sidebar-nav-item"><span class="m material-symbols-outlined">extension</span><span>Extensions</span></div>
+</nav>
+</div>
+<div class="sidebar-bottom">
+<div class="sidebar-nav-item"><span class="m material-symbols-outlined">settings</span><span>Settings</span></div>
+<div class="sidebar-nav-item"><span class="m material-symbols-outlined">person</span><span>Account</span></div>
+</div>
+</aside>
+
+<main class="main">
+<div class="main-pad">
+<div class="dash-header">
+<div><h1>Project Workspace</h1><p>Reviewing active sprints and team velocity across 8 projects.</p></div>
+<button class="new-project-btn"><span class="m material-symbols-outlined">add</span>New Project</button>
+</div>
+
+<div class="grid grid-main">
+<div class="grid-8">
+<div class="filter-bar">
+<span class="m material-symbols-outlined">filter_list</span>
+<span class="active">All Projects</span>
+<span>Active Sprints</span>
+<span>Backlog</span>
+<span>Completed</span>
+</div>
+<div class="cards">
+<div class="card-lg">
+<div class="card-lg-bg"><span class="m material-symbols-outlined">terminal</span></div>
+<div class="card-lg-head">
+<div>
+<div class="card-lg-title"><div class="dot"></div><h3>BuildTogether UI Kit</h3></div>
+<p>The core design system and component library powering our ecosystem. Currently migrating to Tailwind 4.0 alpha.</p>
+</div>
+<div class="card-avatars">
+<div class="av"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjpkTDhonnKEg73F8rTGK_66fKrorhOt-f4uMh-oqTlkUSi1Odv-omM-gaJwQJ8Gmfx2VA9L777cebtbTJqn1RMlCorDHvMmsfwyNyOo_o2Sib0tIw0lScko_afVCihSMvKkNc12O3GGcnEEBdj--Sle2UDY4TIR8PZPVOgcCNwaBbXhtDYKWRC-v2CoRXyDg2g87YJsvRx16whgIOl67JAVFwRPC6054dNP5S7DV1cI0pgV8t_BSN-g" alt=""></div>
+<div class="av"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuASuZHcw60qgSf846i7UX5Rzq3hlnZB4LThnplb0rGiT-zxU63Z5v0-zm1nGe7EmrcksJ_-bin04xZBZHZ8stYuTLuPVIz9wMsoSsRMnJPlz46m41U4UMwcoHHcR8xruarpniL-GW94Z8Gj_al9KtnQA-jnHYGvGQvmzP9ss7A1Y-yiUaz2e2bK0DPPJubvYOWqNxLa2ZJghBWDT8sasx_DB6MJ5G-01HRFngnLEDWygN1vcy5MYzUYjg" alt=""></div>
+<div class="av">+4</div>
+</div>
+</div>
+<div class="card-lg-footer">
+<div>
+<span class="sparkline-label">Commit Velocity</span>
+<div class="sparkline"><svg viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0 15 Q 10 5, 20 18 T 40 10 T 60 15 T 80 5 T 100 12" fill="none" stroke="#4f46e5" stroke-width="2" vector-effect="non-scaling-stroke"></path></svg></div>
+</div>
+<div class="card-stat">
+<div><span class="card-stat-num">1,248</span><span class="card-stat-label">COMMITS</span></div>
+<div><span class="card-stat-num">2m ago</span><span class="card-stat-label">LAST ACTIVE</span></div>
+<button class="nav-icon"><span class="m material-symbols-outlined">more_vert</span></button>
+</div>
+</div>
+</div>
+<div class="card-sm">
+<div class="card-sm-head"><h3>DataViz Engine</h3><span class="tag">v2.1.4</span></div>
+<div class="card-sm-row"><span>Contributors</span><span>8 Active</span></div>
+<div class="card-sm-sparkline"><svg viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0 18 L 10 12 L 20 15 L 30 5 L 40 10 L 50 18 L 60 8 L 70 12 L 80 5 L 90 10 L 100 15" fill="none" stroke="#89ceff" stroke-width="1.5" vector-effect="non-scaling-stroke"></path></svg></div>
+<div class="card-sm-footer"><span>Last commit by <span class="hl" style="color:#c3c0ff">alex_m</span></span><span>1h ago</span></div>
+</div>
+<div class="card-sm">
+<div class="card-sm-head"><h3>Auth-Middleware</h3><span class="m material-symbols-outlined" style="font-size:18px;color:#ffb4ab">warning</span></div>
+<div class="card-sm-row"><span>Open Issues</span><span style="color:#ffb4ab">12 Critical</span></div>
+<div class="card-sm-sparkline" style="opacity:.5"><svg viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0 10 L 20 10 L 40 10 L 60 10 L 80 10 L 100 10" fill="none" stroke="#918fa1" stroke-dasharray="2,2" stroke-width="1" vector-effect="non-scaling-stroke"></path></svg></div>
+<div class="card-sm-footer"><span>Branch: <span class="hl">hotfix/vulnerabilities</span></span><span>Stale</span></div>
+</div>
+<div class="card-sm">
+<div class="card-sm-head"><h3>Internal-CLI</h3><span class="m material-symbols-outlined" style="font-size:18px;color:#c3c0ff">verified</span></div>
+<div class="card-sm-row"><span>Test Coverage</span><span style="color:#4ade80">98%</span></div>
+<div class="card-sm-sparkline"><svg viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0 10 L 15 5 L 30 18 L 45 8 L 60 12 L 75 5 L 90 10 L 100 8" fill="none" stroke="#c3c0ff" stroke-width="1.5" vector-effect="non-scaling-stroke"></path></svg></div>
+<div class="card-sm-footer"><span>Latest release: <span class="hl">v3.0.0-stable</span></span><span>Yesterday</span></div>
+</div>
+<div class="card-empty"><span class="m material-symbols-outlined">add_circle</span><span>Add project repository</span></div>
+</div>
+</div>
+
+<div class="grid-4" style="display:flex;flex-direction:column;gap:24px">
+<div class="sidebar-panel">
+<div class="sidebar-panel-head"><h3>Recent Activity</h3><span class="m material-symbols-outlined">history</span></div>
+<div class="sidebar-panel-body">
+<div class="activity-item"><div class="activity-icon primary"><span class="m material-symbols-outlined">commit</span></div><div><div class="activity-text"><span class="hl">sarah_dev</span> pushed 3 commits to <span class="link">main</span></div><div class="activity-meta">12:45 PM &bull; BUILD-TOGETHER-UI</div></div></div>
+<div class="activity-item"><div class="activity-icon tertiary"><span class="m material-symbols-outlined">merge</span></div><div><div class="activity-text"><span class="hl">james.wu</span> merged PR #452</div><div class="activity-meta">11:20 AM &bull; DATAVIZ-ENGINE</div></div></div>
+<div class="activity-item"><div class="activity-icon error"><span class="m material-symbols-outlined">bug_report</span></div><div><div class="activity-text"><span class="hl">security_bot</span> flagged 2 vulnerabilities</div><div class="activity-meta">09:15 AM &bull; AUTH-MIDDLEWARE</div></div></div>
+<div class="activity-item"><div class="activity-icon secondary"><span class="m material-symbols-outlined">comment</span></div><div><div class="activity-text"><span class="hl">emily_ux</span> commented on design specs</div><div class="activity-meta">08:30 AM &bull; BUILD-TOGETHER-UI</div></div></div>
+</div>
+<button class="view-all-btn">View All Activity</button>
+</div>
+<div class="sidebar-panel">
+<div class="sidebar-panel-head"><h3>Upcoming Deployments</h3><span class="m material-symbols-outlined">rocket_launch</span></div>
+<div class="sidebar-panel-body">
+<div class="deploy-card">
+<div class="deploy-bar primary"></div>
+<div class="deploy-head"><span class="label primary">STAGING</span><span class="time">IN 25 MIN</span></div>
+<p>BuildTogether UI Kit v4.0-rc1</p>
+<div class="status-row"><span class="m material-symbols-outlined">check_circle</span><span>Tests passed</span></div>
+</div>
+<div class="deploy-card" style="opacity:.8">
+<div class="deploy-bar tertiary"></div>
+<div class="deploy-head"><span class="label tertiary">PRODUCTION</span><span class="time">TOMORROW</span></div>
+<p>DataViz Engine Stable Release</p>
+<div class="status-row"><span class="m material-symbols-outlined">info</span><span>Pending manual approval</span></div>
+</div>
+</div>
+</div>
+<div class="sidebar-panel">
+<div class="sidebar-panel-head"><h3>Collaborator Activity</h3><span class="m material-symbols-outlined">analytics</span></div>
+<div class="sidebar-panel-body">
+<div class="perf-bar"><div class="perf-bar-head"><span class="name">Alex M.</span><span style="color:#c3c0ff;font-weight:700">428 LOC</span></div><div class="perf-bar-track"><div class="perf-bar-fill primary" style="width:85%"></div></div></div>
+<div class="perf-bar"><div class="perf-bar-head"><span class="name">Sam R.</span><span style="color:#89ceff;font-weight:700">12 Commits</span></div><div class="perf-bar-track"><div class="perf-bar-fill secondary" style="width:60%"></div></div></div>
+<div class="perf-bar"><div class="perf-bar-head"><span class="name">Jordan K.</span><span style="color:#ffb695;font-weight:700">8 Tasks</span></div><div class="perf-bar-track"><div class="perf-bar-fill tertiary" style="width:45%"></div></div></div>
+</div>
+<div class="total-velocity">
+<div class="change">
+<div><span class="label">TOTAL VELOCITY</span><span class="val">2.4k pts</span></div>
+<div class="right"><span class="pct">+12%</span><span class="sub">VS LAST WEEK</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+<footer class="footer-bar">
+<span>&copy; 2024 BuildTogether. Technical Precision.</span>
+<div class="footer-links">
+<a href="#">Privacy</a><a href="#">Terms</a><a href="#">Documentation</a><a href="#">API</a>
+<div class="status"><div class="dot"></div><span style="font-size:11px;font-weight:600;color:#c7c4d8;letter-spacing:.05em;font-family:'JetBrains Mono',monospace">Status</span></div>
+</div>
+</footer>
+</div>
+</body></html>

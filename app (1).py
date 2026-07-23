@@ -22,6 +22,7 @@ Optional env vars (.env):
 """
 
 import os, uuid, subprocess, tempfile, time, json, re
+from pathlib import Path
 from functools import wraps
 
 
@@ -29,7 +30,7 @@ from functools import wraps
 
 import bcrypt
 import jwt
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_socketio import SocketIO, join_room, leave_room, emit
 from dotenv import load_dotenv
 
@@ -147,6 +148,27 @@ STARTER = {
 }
 
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Serve Frontend (index.html)
+# ─────────────────────────────────────────────────────────────────────────────
+FRONTEND_DIR = Path(__file__).parent
+
+@app.get("/")
+def index():
+    return send_from_directory(FRONTEND_DIR, "index.html")
+
+@app.get("/dashboard")
+def dashboard():
+    return send_from_directory(FRONTEND_DIR, "dashboard.html")
+
+@app.get("/landing")
+def landing():
+    return send_from_directory(FRONTEND_DIR, "landing.html")
+
+@app.get("/team")
+def team():
+    return send_from_directory(FRONTEND_DIR, "team.html")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # REST — Health
