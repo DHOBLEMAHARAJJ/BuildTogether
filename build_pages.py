@@ -191,12 +191,12 @@ LANDING = COMMON + """
 <body>
 <nav class="nav">
 <div class="nav-l">
-<span class="nav-brand">BuildTogether</span>
+<a href="/" style="text-decoration:none;color:#dae2fd"><span class="nav-brand">BuildTogether</span></a>
 <div class="nav-links">
-<a class="active" href="/landing">Projects</a>
-<a href="/team">Team</a>
-<a href="/dashboard">Dashboard</a>
 <a href="/">IDE</a>
+<a href="/dashboard">Projects</a>
+<a href="/team">Team</a>
+<a class="active" href="/landing">Landing</a>
 </div>
 </div>
 <div class="nav-r">
@@ -447,11 +447,13 @@ select:focus{border-color:#c3c0ff}
 <div class="layout">
 <header class="nav">
 <div class="nav-l">
-<span class="nav-brand">BuildTogether</span>
+<a href="/" style="text-decoration:none;color:#dae2fd"><span class="nav-brand">BuildTogether</span></a>
 <div class="nav-links">
+<a href="/">IDE</a>
 <a href="/dashboard">Projects</a>
 <a class="active" href="/team">Team</a>
-<a href="/">IDE</a>
+<a href="/landing">Landing</a>
+</div>
 </div>
 </div>
 <div class="nav-r">
@@ -780,11 +782,12 @@ IDE = COMMON + """
 <div class="layout">
 <header class="nav">
 <div class="nav-l">
-<div class="nav-logo"><div class="icon"><span class="m material-symbols-outlined">bolt</span></div><span class="name">BuildTogether</span></div>
+<a href="/" class="nav-logo" style="text-decoration:none"><div class="icon"><span class="m material-symbols-outlined">bolt</span></div><span class="name">BuildTogether</span></a>
 <div class="nav-links">
-<a href="/dashboard">Projects</a>
 <a class="active" href="/">IDE</a>
+<a href="/dashboard">Projects</a>
 <a href="/team">Team</a>
+<a href="/landing">Landing</a>
 </div>
 </div>
 <div class="nav-r">
@@ -1126,11 +1129,12 @@ DASHBOARD = COMMON + """
 <div class="layout">
 <header class="nav">
 <div class="nav-l">
-<span class="nav-brand">BuildTogether</span>
+<a href="/" style="text-decoration:none;color:#dae2fd"><span class="nav-brand">BuildTogether</span></a>
 <div class="nav-links">
+<a href="/">IDE</a>
 <a class="active" href="/dashboard">Projects</a>
 <a href="/team">Team</a>
-<a href="/">IDE</a>
+<a href="/landing">Landing</a>
 </div>
 </div>
 <div class="nav-r">
